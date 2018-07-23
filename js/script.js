@@ -446,7 +446,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -482,7 +483,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-                    "tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -799,41 +801,27 @@ if(Modernizr.webgl) {
 
 
 		function onLeave() {
-				map.setFilter("state-fills-hover", ["==", "AREACD", ""]);
-				oldAREACD = "";
-				$("#areaselect").val("").trigger("chosen:updated");
+			//	map.setFilter("state-fills-hover", ["==", "AREACD", ""]);
+			//	oldAREACD = "";
+			//	$("#areaselect").val("").trigger("chosen:updated");
 				hideaxisVal();
 		};
 
 		function onClick(e) {
-		                //disableMouseEvents();
-										console.log(features)
-		                newAREACD = e.features[0].properties.GID;
-										drawStacked(e.features[0].properties.pollution_total, features[1].properties.value);
+
+										features = map.queryRenderedFeatures(e.point);
+
+										drawStacked(features[0].properties.pollution_total, features[1].properties.value);
 										if(value==='value') {
-											setAxisVal(e.features[0].properties[pollutant]);
+											setAxisVal(features[0].properties[pollutant]);
 										} else {
 											setAxisVal(valuedata.total);
 										}
 
-										d3.select('#SO2').text(e.features[0].properties['pollution_SO2'])
-										d3.select('#O3').text(e.features[0].properties['pollution_O3'])
-										d3.select('#NO2').text(e.features[0].properties['pollution_NO2'])
-										d3.select('#NH3').text(e.features[0].properties['pollution_NH3'])
-										d3.select('#PM10').text(e.features[0].properties['pollution_PM10'])
-										d3.select('#PM25').text(e.features[0].properties['pollution_PM25'])
-										d3.select('#Total').text(e.features[0].properties['pollution_total'])
+		                map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
+										map.setFilter("state-fills-hover", ["==", "AREACD", features[1].properties.AREACD]);
 
 
-		                if(newAREACD != oldAREACD) {
-		                    oldAREACD = e.features[0].properties.GID;
-
-		                    map.setFilter("onekmhover", ["==", "GID", e.features[0].properties.GID]);
-
-		                    //selectArea(e.features[0].properties.GID);
-		                    //setAxisVal(e.features[0].properties.AREACD);
-
-		                }
 		        };
 		function disableMouseEvents() {
 				map.off("mousemove", "area", onMove);
@@ -894,46 +882,6 @@ if(Modernizr.webgl) {
 
 			d3.select("#currVal").text("")
 				.style("opacity",0)
-		}
-
-		function createLegend(keydata) {
-
-			//d3.select("#keydiv")
-			console.log(keydata);
-
-			// d3.select('#keydiv').append("p").attr("id","people").text("placeholder");
-			//
-			// legend = d3.select('#keydiv')
-			// 	.append('ul')
-			// 	.attr('class', 'key')
-			// 	.selectAll('g')
-			// 	.data(keydata.groups)
-			// 	.enter()
-			// 	.append('li')
-			// 	//.style("background-color", function(d , i) { return dvc.essential.colour_palette[i]; })
-			// 	.attr('class', function(d, i) { return 'key-item key-' + i + ' b '+ d.replace(' ', '-').toLowerCase(); })
-			// 	.on("mouseover",function(d, i){
-			// 		d3.selectAll(".key-item").style("opacity",0.2);
-			// 		d3.selectAll(".key-" + i).style("opacity",1);
-			// 	})
-			// 	.on("mouseout",function(d, i){
-			// 		d3.selectAll(".key-item").style("opacity",1);
-			// 	})
-			//
-			// legend.append('label').attr('class','legendlabel').text(function(d,i) {
-			// 	var value = parseFloat(d).toFixed(1);
-			// 	return d;
-			// });
-			//
-			// legend.append('div').style("width","40px").style("float","right").append("div").attr("class", "legendRect").attr("id",function(d,i){return "legendRect" + i}).style("width","0px");
-			//
-			// legend.append('b').attr("class", "legendBlocks")
-			// 	.style("background-color", function(d , i) { return keydata.colours[i]; });
-
-
-
-
-
 		}
 
 		function createKey(config){
