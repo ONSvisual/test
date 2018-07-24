@@ -8,8 +8,7 @@
 
   <link href='css/mapbox-gl.css' rel='stylesheet'/>
   <link href='css/bootstrap-grid.css' rel='stylesheet'/>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="css/chosen.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">  <link rel="stylesheet" href="css/chosen.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 <style>
@@ -21,6 +20,7 @@
 /*		max-width:800px;
 */		margin: 0px auto;
 		display:table;
+    font-size: 16px;
 	}
 
 	#header{
@@ -36,9 +36,68 @@
 		display: none;
 	}
 
+  #scene-image {
+    margin-right: 20px;
+  }
+
+  #button-pic {
+    height: 30px;
+  }
+
+  #container-pollution-removed {
+    background-color: #0075A3;
+    height: 85px;
+  }
+
+  #container-pollution-value {
+    background-color: #174363;
+    /* clear: left; */
+    height: 85px;
+  }
+
+  .container-stats {
+    padding-top: 15px;
+    margin-top: 20px;
+    margin-right: 20px;
+    color: white;
+  }
+
+  .pic {
+    width: 20%;
+    display: inline-block;
+    float: left;
+    padding-left: 10px;
+    box-sizing: border-box;
+  }
+
+  #leaf-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+
+    width: 80%;
+    float: left;
+  }
+
+  #coin-text {
+    width: 80%;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    font-weight: lighter;
+  }
+
+  .bold-text {
+    font-weight: 700;
+  }
+
+
   /* Button group styles */
 
-  #primary {
+  /* #primary {
     margin-bottom: 32px;
   }
 
@@ -65,44 +124,114 @@
 
   .form-group:last-child {
     border-right: solid 1px #A6A8AB;
+  } */
+
+  /* Full width */
+
+  .btn-form-fullwidth {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-family: 'Open Sans',Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 15px;
+    width: 100%;
   }
 
-  /* Primary button group */
+  .form-group-fullwidth {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: pointer;
+    height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+  }
 
-  .label-primary {
+  .form-group-fullwidth:last-child {
+    border-right: solid 1px #A6A8AB;
+  }
+
+  .label-primary-fullwidth {
     padding: 8px 16px;
     cursor: pointer;
     color: #333;
     background: #F9F9F9;
-    width: 112px;
     border-top: solid 1px #A6A8AB;
     border-left: solid 1px #A6A8AB;
     border-bottom: solid 1px #A6A8AB;
+    width: 100%;
   }
 
-  .label-primary:hover {
+  .label-primary-fullwidth:hover {
     background: #003C57;
     color: #fff;
     border-color: #003C57;
+    width: 100%;
   }
 
-  .radio-primary {
-    display: none;
-  }
-
-  .radio-primary:checked + .label-primary {
+  .radio-primary-fullwidth:checked + .label-primary-fullwidth {
     background: #206095;
     color: #fff;
     border-color: #206095;
     cursor: default;
+    width: 100%;
   }
 
-  [role="radio"]:focus {
-    outline: 3px solid #FF9933 !important;
-    outline-offset: -1px;
-    background-color:#003C57;
-    z-index: 1;
+  .radio-primary-fullwidth {
+    display: none;
   }
+
+  /*  dropdown */
+  #select-container {
+    padding-bottom: 10px;
+  }
+
+  #pollutant-select {
+    width: 50%;
+  }
+
+
+  #select-text {
+    font-weight: bold;
+    color: #0075A3;
+    display: block;
+    padding-bottom: 5px;
+  }
+
+  #postcode-text, #savings-text {
+    font-weight: bold;
+    color: #0075A3;
+  }
+
+  .pic-second {
+    width: 20%;
+    float: left;
+  }
+
+  #info-leaf {
+    width: 80%;
+    float: left;
+    font-weight: bold;
+    color: #0075A3;
+
+  }
+
+  #info-coin {
+    width: 80%;
+    float: left;
+    font-weight: bold;
+    color: #174363;
+  }
+
+  #pollution-removed, #pollution-hectare {
+    margin-right: 15px;
+  }
+
+
 
 
 	@media (min-width: 599px) {
@@ -119,11 +248,12 @@
 			height:40px;
 			background-color:rgba(255,255,255,0.8);
 			z-index:1;
+      margin-top: 5px;
 		}
 
 		#keydiv {
 			position:absolute;
-			top:40px;
+			/* top:40px; */
 			left:0px;
 			width:200px;
 			height:140px;
@@ -259,18 +389,21 @@
 
 #pcText {
 			width: 130px;
-			height:20px;
+			/* height:42px; */
 			padding: 3px;
+      /* padding-bottom: 10px; */
 			color: #999999;
+      font-size: 16px;
 }
 
 .btnEnable {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 40px;
+    height: 40px;
     border: none;
-    padding: 6px 0;
-    background-color: #0084d1;
+    padding: 0px 0!important;
+    background-color: #0075A3;
     font: 700 16px Arial;
     color: #FFF;
     filter: inherit;
@@ -315,14 +448,64 @@
   </form> -->
 
   <div id="info-box" class="col-xs-4">
+    <div id="scene-image">
+      <img src="images/scene.svg" alt="">
+    </div>
+    <span style="margin-bottom:15px; font-weight:bold; color:#0075A3">Enter your postcode</span>
     <div id='selectNav'>
       <form id="pcForm">
         <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
-        <button class="btnEnable" id="submitPost" type="submit">GO!</button>
+        <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
       </form>
     </div>
-    <div id="pollution-removed"></div>
-    <div id="pollution-hectare"></div>
+    <div style="margin-top:15px;" id="onload-text">
+      Text here if we want it
+    </div>
+    <div id="container-pollution-removed" class="container-stats">
+      <div class="pic">
+        <img src="images/leaf.svg" alt="">
+      </div>
+      <div id="leaf-text">
+        <span class="bold-text">1 kg of pollution removed</span>
+        is equivalent to bla bla bla.
+      </div>
+    </div>
+    <div id="container-pollution-value" class="container-stats">
+      <div class="pic">
+        <img src="images/coin.svg" alt="">
+      </div>
+      <div id="coin-text">
+        <span class="bold-text">£1 per unit of saved health costs</span>
+        is equivalent to bla bla bla.
+      </div>
+    </div>
+    <div id="postcode-info">
+      <div id="postcode-text">
+        <div style="margin-top:20px; margin-bottom:15px;">Pollution removed in this km square</div>
+      </div>
+      <div id="container-detail-leaf">
+        <div class="pic-second">
+          <img src="images/leaf.svg" alt="">
+        </div>
+        <div id="info-leaf" style="padding-top:10px;">
+          <span id="num-leaf" style="font-size:30px;">25</span> kg
+        </div>
+      </div>
+      <div id="pollution-removed"></div>
+      <div id="savings-text">
+        <div style="margin-top:20px; margin-bottom:15px;">The amount saved in healthcare costs in your wider area, <span id="yourNuts3"></span></div>
+      </div>
+      <div id="container-detail-coin">
+        <div class="pic-second">
+          <img src="images/coin.svg" alt="">
+        </div>
+        <div id="info-coin"style="padding-top:10px;">
+          <span id="num-coin"style="font-size:30px;">£7</span>
+        </div>
+      </div>
+
+      <div id="pollution-hectare"></div>
+    </div>
 
     <!-- <p>SO2: <span id='SO2'></span></p>
     <p>O3: <span id='O3'></span></p>
@@ -334,26 +517,33 @@
   </div>
 
   <div id='map' class="col-xs-8">
-    <select id="pollutant-select" class="js-example-basic-single" name="state">
-      <option value="pollution_SO2">SO2</option>
-      <option value="pollution_O3">O3</option>
-      <option value="pollution_NO2">NO2</option>
-      <option value="pollution_NH3">NH3</option>
-      <option value="pollution_PM10">PM10</option>
-      <option value="pollution_PM25">PM25</option>
-      <option value="pollution_total">Total</option>
-    </select>
     <!-- <button id="switch">switch</button> -->
-    <form class="btn-form" role="radiogroup">
-      <div class="form-group" role="radio" tabindex="0">
-        <input id="button-1" class="radio-primary" type="radio" name="button" value="value" aria-checked="true" checked>
-        <label class="label-primary" for="button-1">Removed</label>
+    <form class="btn-form-fullwidth" role="radiogroup">
+      <div class="form-group-fullwidth" role="radio" tabindex="0">
+        <input id="button-1" class="radio-primary-fullwidth" type="radio" name="button" value="value" aria-checked="true" checked>
+        <label class="label-primary-fullwidth" for="button-1">Pollution removed (kg)</label>
       </div>
-      <div class="form-group" role="radio" tabindex="2">
-        <input id="button-2" class="radio-primary" type="radio" name="button" value="hectare" aria-checked="false">
-        <label class="label-primary" for="button-2">kg/ha</label>
+      <div class="form-group-fullwidth" role="radio" tabindex="2">
+        <input id="button-2" class="radio-primary-fullwidth" type="radio" name="button" value="hectare" aria-checked="false">
+        <label class="label-primary-fullwidth" for="button-2">Avoided health costs (£)</label>
       </div>
     </form>
+    <div id="pollutant-wrapper" style="height:63px">
+      <div id="select-container">
+        <span id="select-text">Select a pollutant</span>
+        <select id="pollutant-select" class="js-example-basic-single" name="state">
+          <option value="pollution_SO2">SO2</option>
+          <option value="pollution_O3">O3</option>
+          <option value="pollution_NO2">NO2</option>
+          <option value="pollution_NH3">NH3</option>
+          <option value="pollution_PM10">PM10</option>
+          <option value="pollution_PM25">PM25</option>
+          <option value="pollution_total">Total</option>
+        </select>
+      </div>
+    </div>
+
+
 
   	<div id='keydiv'></div>
   </div>

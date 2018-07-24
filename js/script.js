@@ -15,11 +15,10 @@ if(Modernizr.webgl) {
 
 
 	function ready (error, valuedata, config, geog){
-		console.log(valuedata)
 		//Set up global variables
 		dvc = config.ons;
 		oldAREACD = "";
-		var value = 'value';
+		var value='value';
 		var pollutant = "pollution_SO2";
 
 		var breaksData = [-145,190,392,700,2282,6762];
@@ -29,9 +28,17 @@ if(Modernizr.webgl) {
 		// d3.select("#switch").on("click", switchMe)
 		d3.selectAll("input[name='button']")
 		  .on('click', function() {
-				switchMe(this.value);
+				value = this.value;
+				switchMe(value);
+				if(value === 'hectare') {
+					d3.select('#select-container').style('display', 'none');
+				}
+				if(value === 'value') {
+					d3.select('#select-container').style('display', 'block')
+				}
 				// createKey(breaksData);
 		  });
+
 
 		//set title of page
 		//Need to test that this shows up in GA
@@ -48,13 +55,13 @@ if(Modernizr.webgl) {
 
 		// value removed
 		var widthPollution = document.getElementById('pollution-removed').clientWidth;
-		var heightPollution = 100;
+		var heightPollution = 120;
 
 		var marginPollution = {
 	    top: 0,
-	    bottom: 30,
-	    left: 10,
-	    right: 10
+	    bottom: 60,
+	    left: 0,
+	    right: 0
 		};
 
 		var svgPollution = d3.select("#pollution-removed")
@@ -77,7 +84,7 @@ if(Modernizr.webgl) {
 			.rangeRound([0, widthPollution]);
 
 		var z = d3.scaleOrdinal(d3.schemeCategory20)
-    	.range(["#c9c9c9", "#404da3"]);
+    	.range(["#dadada", "#0075A3"]);
 
 		var stack = d3.stack()
 	    .offset(d3.stackOffsetExpand);
@@ -92,16 +99,49 @@ if(Modernizr.webgl) {
 	    .attr("class", "axis--x")
 	    .attr("transform", "translate(0," + heightPollution + ")");
 
+		// average line
+
+		var xLine = d3.scaleLinear()
+				.domain([0,20060])
+				.range([0, widthPollution]);
+
+		var yLine = d3.scaleLinear()
+				.domain([0, heightPollution])
+				.range([0, heightPollution])
+
+
+		var data = [[3000, 0], [3000, heightPollution]];
+
+		var line = d3.line()
+					.x( function(d) { return xLine(d[0]) })
+					.y( function(d) { console.log(d);return yLine(d[1]) });
+
+
+		var average_line = svgPollution.selectAll('.line')
+													.data([data]);
+													console.log(average_line)
+
+
+													average_line
+														.enter()
+														.append('path')
+															.attr('class', 'line')
+															.style("fill", "none")
+															.style("stroke", "red")
+															.style("stroke-width", '3px')
+															.attr('d', line);
+
+
 
 		// hectare
 		var widthHectare = document.getElementById('pollution-hectare').clientWidth;
-		var heightHectare = 100;
+		var heightHectare = 120;
 
 		var marginHectare = {
 	    top: 0,
-	    bottom: 30,
-	    left: 10,
-	    right: 10
+	    bottom: 60,
+	    left: 0,
+	    right: 0
 		};
 
 		var svgHectare = d3.select("#pollution-hectare")
@@ -124,7 +164,7 @@ if(Modernizr.webgl) {
 			.rangeRound([0, widthHectare]);
 
 		var z_hectare = d3.scaleOrdinal(d3.schemeCategory20)
-    	.range(["#c9c9c9", "#404da3"]);
+    	.range(["#dadada", "#174363"]);
 
 		var stack_hectare = d3.stack()
 	    .offset(d3.stackOffsetExpand);
@@ -144,7 +184,7 @@ if(Modernizr.webgl) {
 		// function that inserts data to stacked back
 		// run function on load with total pollution data from a postcode or 0
 
-		drawStacked(1500, 0)
+		drawStacked(0, 0)
 
 		function drawStacked(data,data2) {
 
@@ -157,15 +197,13 @@ if(Modernizr.webgl) {
 
 			var key = ["areaVal", "totalMax"];
 
-			total_data.sort(function(a, b) {console.log(a)
+			total_data.sort(function(a, b) {
   				return b.total - a.total;
         });
 
-			console.log(total_data.sort(function(a, b) {
-			  				return b.total - a.total;}));
 
 			x.domain([0, 1]).nice()
-      y.domain(total_data.map(function(d) { console.log(d.index)
+      y.domain(total_data.map(function(d) {
             return d.index;
         }));
       z.domain(total_data);
@@ -184,11 +222,11 @@ if(Modernizr.webgl) {
             .attr("class", "serie")
 
         new_layer.selectAll("rect")
-            .data(function(d) { console.log(d)
+            .data(function(d) {
                 return d;
             })
             .enter().append("rect")
-            .attr("y", function(d) {console.log(d)
+            .attr("y", function(d) {
                 return y(d.data.index);
             })
             // .transition()
@@ -222,9 +260,28 @@ if(Modernizr.webgl) {
                 return x(d[0]);
             });
 
+			// 	// average line
+			//
+			// 	var yLine = d3.scaleLinear()
+			// 			.domain([0, heightPollution])
+			// 			.range([0, heightPollution])
+			//
+			//
+			// var data = [[300, 0], [300, heightPollution]];
+			//
+			// var line = d3.line()
+			// 			.x( function(d) { return x(d[0]) })
+			// 			.y( function(d) { console.log(d);return yLine(d[1]) });
+			//
+			// var average_line = svgPollution.selectAll('.line')
+			// 											.data([data]);
+
+
+
+
+
 				// // hectare
 				var maxHectare = d3.max(valuedata, function(d) {return +d.total});
-				console.log(d3.max(valuedata, function(d) {return +d.total}))
 
 				data_hectare = [{
 					"index": "value",
@@ -235,15 +292,13 @@ if(Modernizr.webgl) {
 				var key_hectare = ["areaVal", "hectareMax"];
 
 
-				data_hectare.sort(function(a, b) {console.log(a)
+				data_hectare.sort(function(a, b) {
 						return b.total - a.total;
 					});
 
-				console.log(total_data.sort(function(a, b) {
-									return b.total - a.total;}));
 
 				x_hectare.domain([0, 1]).nice()
-				y_hectare.domain(data_hectare.map(function(d) { console.log(d.index)
+				y_hectare.domain(data_hectare.map(function(d) {
 							return d.index;
 					}));
 				z_hectare.domain(data_hectare);
@@ -262,11 +317,11 @@ if(Modernizr.webgl) {
 							.attr("class", "serie-hectare")
 
 					new_hectare.selectAll("rect")
-							.data(function(d) { console.log(d)
+							.data(function(d) {
 									return d;
 							})
 							.enter().append("rect")
-							.attr("y", function(d) {console.log(d)
+							.attr("y", function(d) {
 									return y_hectare(d.data.index);
 							})
 							.attr("x", function(d) {
@@ -276,7 +331,7 @@ if(Modernizr.webgl) {
 									return x_hectare(d[1]) - x(d[0]);
 							})
 							.attr("height", y_hectare.bandwidth())
-							.attr("fill", z);
+							.attr("fill", z_hectare);
 
 					// update
 					new_hectare.merge(layer_hectare)
@@ -300,6 +355,10 @@ if(Modernizr.webgl) {
 
 
 		}
+
+		// hide info and stacked bar charts onload
+		d3.select('#postcode-info').style('display', 'none');
+
 
 
 
@@ -348,7 +407,6 @@ if(Modernizr.webgl) {
 			areaById = {};
 
 			valuedata.forEach(function(d) {rateById[d.AREACD] = +d[variables[0]]; areaById[d.AREACD] = d.AREANM}); //change to brackets
-			console.log(rateById);
 			breaks = config.ons.breaks[0];
 			createKey(breaks);
 
@@ -446,8 +504,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -483,8 +541,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -523,7 +581,14 @@ if(Modernizr.webgl) {
 		$("#submitPost").click(function( event ) {
 						event.preventDefault();
 						event.stopPropagation();
+
+						// d3.select('#onload-text').style('display', 'none');
+						// d3.selectAll('.container-stats').style('display', 'none');
+						// d3.select('#postcode-info').style('display', 'block');
+
 						myValue=$("#pcText").val();
+
+						// d3.select('#postcode').text(myValue);
 
 						getCodes(myValue);
 		});
@@ -533,12 +598,10 @@ if(Modernizr.webgl) {
 		$('#pollutant-select').on('change', function() {
 			pollutant = $('#pollutant-select').val();
 			updateLayers(pollutant)
-			console.log(pollutant)
 		})
 
 
 		function updateLayers(pollVal) {
-			console.log(pollVal);
 			//set up style object
 
 			var dataBreaks = {
@@ -603,8 +666,6 @@ if(Modernizr.webgl) {
 
 			createKey(breaksData)
 
-			console.log(breaksData)
-
 			styleObject = {
 									property: pollVal,
 									'stops': dataBreaks[pollVal]
@@ -623,8 +684,6 @@ if(Modernizr.webgl) {
 			map.on("moveend", function (e) {
 				zoom = parseInt(map.getZoom());
 
-				console.log(zoom)
-
 				baselevel = 13;
 				numberperdotlowest = 10;
 				dropdensity = 2;
@@ -641,8 +700,6 @@ if(Modernizr.webgl) {
 
 			function getCodes(myPC)	{
 
-				console.log(myPC);
-
 					var myURIstring=encodeURI("https://api.postcodes.io/postcodes/"+myPC);
 					$.support.cors = true;
 					$.ajax({
@@ -651,13 +708,11 @@ if(Modernizr.webgl) {
 						dataType: "jsonp",
 						url: myURIstring,
 						error: function (xhr, ajaxOptions, thrownError) {
-							console.log(thrownError);
 								//$("#pcError").text("couldn't process this request").show();
 
 							},
 						success: function(data1){
 							if(data1.status == 200 ){
-								console.log(data1);
 								//$("#pcError").hide();
 								lat =data1.result.latitude;
 								lng = data1.result.longitude;
@@ -679,7 +734,6 @@ if(Modernizr.webgl) {
 		  //go on to filter
 		  //Translate lng lat coords to point on screen
 		  point = map.project([lng,lat]);
-			console.log(point);
 
 			map.flyTo({center:[lng,lat], zoom:10, duration:4000})
 
@@ -697,20 +751,26 @@ if(Modernizr.webgl) {
                 // var features = map.queryRenderedFeatures(queryBox);
                 // console.log(features)
                 // map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
+								d3.select('#onload-text').style('display', 'none');
+								d3.selectAll('.container-stats').style('display', 'none');
+								d3.select('#postcode-info').style('display', 'block');
+
                 point = map.project([lng,lat]);
 
                 features = map.queryRenderedFeatures(point);
-
-								console.log(features[1].properties);
+								console.log(features[1].properties.AREANM)
 								// console.log(features[0].properties.pollution_total)
-								drawStacked(features[0].properties.pollution_total, features[1].properties.value)
-								d3.select('#SO2').text(features[0].properties['pollution_SO2']);
-								d3.select('#O3').text(features[0].properties['pollution_O3']);
-								d3.select('#NO2').text(features[0].properties['pollution_NO2']);
-								d3.select('#NH3').text(features[0].properties['pollution_NH3']);
-								d3.select('#PM10').text(features[0].properties['pollution_PM10']);
-								d3.select('#PM25').text(features[0].properties['pollution_PM25']);
-								d3.select('#Total').text(features[0].properties['pollution_total']);
+								drawStacked(features[0].properties.pollution_total, features[1].properties.value);
+								d3.select('#num-leaf').text(features[0].properties.pollution_total);
+								d3.select('#num-coin').text('£'+features[1].properties.value);
+								d3.select('#yourNuts3').text(features[1].properties.AREANM);
+								// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
+								// d3.select('#O3').text(features[0].properties['pollution_O3']);
+								// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
+								// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
+								// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
+								// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
+								// d3.select('#Total').text(features[0].properties['pollution_total']);
 
                 map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[1].properties.AREACD]);
@@ -809,18 +869,28 @@ if(Modernizr.webgl) {
 
 		function onClick(e) {
 
+
 										features = map.queryRenderedFeatures(e.point);
+										console.log(features)
 
 										drawStacked(features[0].properties.pollution_total, features[1].properties.value);
 										if(value==='value') {
 											setAxisVal(features[0].properties[pollutant]);
-										} else {
-											setAxisVal(valuedata.total);
+										} if(value==='hectare') {
+											setAxisVal(features[1].properties.value);
 										}
+
+										d3.select('#onload-text').style('display', 'none');
+										d3.selectAll('.container-stats').style('display', 'none');
+										d3.select('#postcode-info').style('display', 'block');
+
 
 		                map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
 										map.setFilter("state-fills-hover", ["==", "AREACD", features[1].properties.AREACD]);
 
+										d3.select('#num-leaf').text(features[0].properties.pollution_total);
+										d3.select('#num-coin').text('£'+features[1].properties.value);
+										d3.select('#yourNuts3').text(features[1].properties.AREANM);
 
 		        };
 		function disableMouseEvents() {
@@ -858,7 +928,6 @@ if(Modernizr.webgl) {
 
 
 		function setAxisVal(code) {
-			console.log(code)
 			d3.select("#currLine")
 				.style("opacity", function(){if(!isNaN(code)) {return 1} else{return 0}})
 				.transition()
@@ -995,7 +1064,13 @@ if(Modernizr.webgl) {
 			//Temporary	hardcode unit text
 			dvc.unittext = "change in life expectancy";
 
-			d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit);
+			if(value==='value') {
+				d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit);
+			}
+			if(value==='hectare') {
+				d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit2);
+			}
+
 
 	} // Ends create key
 	// run createKey with breaks
@@ -1019,32 +1094,29 @@ if(Modernizr.webgl) {
 
 	}
 
-	function switchMe(value) {
-		if(value == 'hectare') {
-			value = 'value';
+	function switchMe(valueButton) {
+
+		if(valueButton === 'hectare') {
+			// value = 'value';
 			map.setPaintProperty('area', 'fill-opacity', 0.7);
 			map.setPaintProperty('state-fills-hover', 'line-color', "rgba(0,0,0,1)");
 			map.setPaintProperty('pollution', 'fill-opacity', 0);
 			map.setPaintProperty('onekmhover', 'line-opacity', 0);
 			defineBreaks();
 			setupScales();
-
-
-		} else {
-			value = 'hectare';
+		} if(valueButton==='value') {
+			// value = 'hectare';
 			map.setPaintProperty('area', 'fill-opacity', 0.0);
 			map.setPaintProperty('state-fills-hover', 'line-color', "rgba(0,0,0,0)")
 			map.setPaintProperty('pollution', 'fill-opacity', 0.7);
 			map.setPaintProperty('onekmhover', 'line-opacity', 0.7);
 			createKey(breaksData);
 		}
-		console.log("hello")
 	}
 
 
 	function exitHandler() {
 
-		console.log("shrink");
 			if (document.webkitIsFullScreen === false)
 			{
 				shrinkbody();
@@ -1126,6 +1198,8 @@ if(Modernizr.webgl) {
 	};
 
 	}
+
+
 
 } else {
 
