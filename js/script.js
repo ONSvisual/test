@@ -82,62 +82,27 @@ if(Modernizr.webgl) {
 		heightPollution = heightPollution - marginPollution.top - marginPollution.bottom;
 
 		var y = d3.scaleBand()
-			.rangeRound([heightPollution, 0])
+			.rangeRound([heightPollution,0])
 			// .padding(0.3)
 			// .align(0.3);
 
 		var x = d3.scaleLinear()
-			.rangeRound([0, widthPollution]);
+			.rangeRound([widthPollution, 0]);
 
-		var z = d3.scaleOrdinal(d3.schemeCategory20)
-    	.range(["#dadada", "#0075A3"]);
+		var x_axis = d3.axisBottom(x);
 
-		var stack = d3.stack()
-	    .offset(d3.stackOffsetExpand);
-
-		var x_axis = d3.axisBottom()
-	    .scale(x);
-
-		var y_axis = d3.axisLeft()
-	    .scale(y);
+		var y_axis = d3.axisLeft(y);
 
 		svgPollution.append("g")
-	    .attr("class", "axis--x")
-	    .attr("transform", "translate(0," + heightPollution + ")");
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(0," + heightPollution + ")")
 
-		// average line
-
-		var xLine = d3.scaleLinear()
-				.domain([0,20060])
-				.range([0, widthPollution]);
-
-		var yLine = d3.scaleLinear()
-				.domain([0, heightPollution])
-				.range([0, heightPollution])
-
-
-		var data = [[3000, 0], [3000, heightPollution]];
-
-		var line = d3.line()
-					.x( function(d) { return xLine(d[0]) })
-					.y( function(d) { console.log(d);return yLine(d[1]) });
-
-
-		var average_line = svgPollution.selectAll('.line')
-													.data([data]);
-													console.log(average_line)
-
-
-													average_line
-														.enter()
-														.append('path')
-															.attr('class', 'line')
-															.style("fill", "none")
-															.style("stroke", "red")
-															.style("stroke-width", '3px')
-															.attr('d', line);
-
-
+		svgPollution.append("rect")
+			.attr("class", ".background1")
+			.attr('width', widthPollution)
+			.attr('y', 0)
+			.attr('height', y.bandwidth())
+			.attr('fill', "#dadada")
 
 		// hectare
 		var widthHectare = document.getElementById('pollution-hectare').clientWidth;
@@ -167,13 +132,12 @@ if(Modernizr.webgl) {
 			// .align(0.3);
 
 		var x_hectare = d3.scaleLinear()
-			.rangeRound([0, widthHectare]);
+			.rangeRound([widthHectare,0]);
 
-		var z_hectare = d3.scaleOrdinal(d3.schemeCategory20)
-    	.range(["#dadada", "#174363"]);
+		var z_hectare = d3.scaleOrdinal()
+    	.range(["#174363", "#dadada"]);
 
-		var stack_hectare = d3.stack()
-	    .offset(d3.stackOffsetExpand);
+		var stack_hectare = d3.stack();
 
 		var xAxisHec = d3.axisBottom()
 	    .scale(x_hectare);
@@ -185,6 +149,14 @@ if(Modernizr.webgl) {
 	    .attr("class", "axis--x")
 	    .attr("transform", "translate(0," + heightHectare + ")");
 
+		svgHectare.append("rect")
+			.attr("class", ".background2")
+			.attr('width', widthHectare)
+			.attr('y', 0)
+			.attr('height', y_hectare.bandwidth())
+			.attr('fill', "#dadada")
+
+
 
 
 		// function that inserts data to stacked back
@@ -194,95 +166,49 @@ if(Modernizr.webgl) {
 
 		function drawStacked(data,data2) {
 
+			var t = d3.transition()
+        .duration(2000);
+
 			// value removed
 			total_data = [{
 				"index": "value",
 				"areaVal": data,
-				"totalMax": 20060
+				"totalMax": 20059
 			}];
 
-			var key = ["areaVal", "totalMax"];
-
-			total_data.sort(function(a, b) {
-  				return b.total - a.total;
-        });
-
-
-			x.domain([0, 1]).nice()
+			x.domain([0,total_data[0]["totalMax"]])//.nice();
       y.domain(total_data.map(function(d) {
             return d.index;
         }));
-      z.domain(total_data);
 
 			var layer = svgPollution.selectAll(".serie")
-            .data(stack.keys(key)(total_data))
+            .data(total_data);
 
-        // exit
         layer
             .exit()
             .remove()
 
         // enter
         var new_layer = layer.enter()
-            .append("g")
+            .append("rect")
             .attr("class", "serie")
+						.attr('y', function(d) {
+            return y(d.index);
+		        })
+		        .attr('width', 0)
+		        .attr('height', y.bandwidth())
 
-        new_layer.selectAll("rect")
-            .data(function(d) {
-                return d;
-            })
-            .enter().append("rect")
-            .attr("y", function(d) {
-                return y(d.data.index);
-            })
-            // .transition()
-            // .duration(1000)
-            .attr("x", function(d) {
-                return x(d[0]);
-            })
-            .attr("width", function(d) {
-                return x(d[1]) - x(d[0]);
-            })
-            .attr("height", y.bandwidth())
-            .attr("fill", z);
-
-        // update
-        new_layer.merge(layer)
-            .selectAll("rect")
-            .data(function(d) {
-                return d;
-            })
-            .transition()
-            .duration(1000)
-            .attr("width", function(d) {
-                return x(d[1]) - x(d[0]);
-            })
-						.attr("height", y.bandwidth())
-
-            .attr("y", function(d) {
-                return y(d.data.index);
-            })
-            .attr("x", function(d) {
-                return x(d[0]);
-            });
-
-			// 	// average line
-			//
-			// 	var yLine = d3.scaleLinear()
-			// 			.domain([0, heightPollution])
-			// 			.range([0, heightPollution])
-			//
-			//
-			// var data = [[300, 0], [300, heightPollution]];
-			//
-			// var line = d3.line()
-			// 			.x( function(d) { return x(d[0]) })
-			// 			.y( function(d) { console.log(d);return yLine(d[1]) });
-			//
-			// var average_line = svgPollution.selectAll('.line')
-			// 											.data([data]);
-
-
+		    new_layer.merge(layer)
+		        .transition(t)
+		        .attr('y', function(d) {
+		            return y(d.index);
+		        })
+		        .attr('width', function(d) { console.log(d)
+		            return widthPollution - x(d.areaVal)
+		        })
+		        .attr('fill', function(d) {
+		            return "#0075A3";
+		        })
 
 
 
@@ -295,72 +221,157 @@ if(Modernizr.webgl) {
 					"hectareMax": maxHectare
 				}];
 
-				var key_hectare = ["areaVal", "hectareMax"];
-
-
-				data_hectare.sort(function(a, b) {
-						return b.total - a.total;
-					});
-
-
-				x_hectare.domain([0, 1]).nice()
+				x_hectare.domain([0, maxHectare])//.nice()
 				y_hectare.domain(data_hectare.map(function(d) {
 							return d.index;
 					}));
-				z_hectare.domain(data_hectare);
 
 				var layer_hectare = svgHectare.selectAll(".serie-hectare")
-							.data(stack_hectare.keys(key_hectare)(data_hectare))
+							.data(data_hectare)
 
-					// exit
 					layer_hectare
 							.exit()
 							.remove()
 
 					// enter
 					var new_hectare = layer_hectare.enter()
-							.append("g")
+							.append("rect")
 							.attr("class", "serie-hectare")
+							.attr('y', function(d) {
+								return y(d.index)
+							})
+							.attr('width', 0)
+							.attr('y', heightHectare)
+							.attr('height', y_hectare.bandwidth());
 
-					new_hectare.selectAll("rect")
-							.data(function(d) {
-									return d;
-							})
-							.enter().append("rect")
-							.attr("y", function(d) {
-									return y_hectare(d.data.index);
-							})
-							.attr("x", function(d) {
-									return x_hectare(d[0]);
-							})
-							.attr("width", function(d) {
-									return x_hectare(d[1]) - x(d[0]);
-							})
-							.attr("height", y_hectare.bandwidth())
-							.attr("fill", z_hectare);
-
-					// update
 					new_hectare.merge(layer_hectare)
-							.selectAll("rect")
-							.data(function(d) {
-									return d;
+							.transition(t)
+							.attr('y', function(d) {
+									return y_hectare(d.index);
 							})
-							.transition()
-							.duration(1000)
-							.attr("width", function(d) {
-									return x_hectare(d[1]) - x_hectare(d[0]);
+							.attr('width', function(d) { console.log(d)
+									return widthHectare - x_hectare(d.areaVal)
 							})
-							.attr("height", y_hectare.bandwidth())
-
-							.attr("y", function(d) {
-									return y_hectare(d.data.index);
+							.attr('fill', function(d) {
+									return "#174363";
 							})
-							.attr("x", function(d) {
-									return x_hectare(d[0]);
-							});
 
 
-		}
+		} //end drawStacked
+
+		// average lines
+
+		//first stacked bar
+
+		var xAverage1 = d3.scaleLinear()
+				.domain([0,20059])
+				.range([0, widthPollution]);
+
+		var yAverage1 = d3.scaleLinear()
+				.domain([0, heightPollution])
+				.range([0, heightPollution])
+
+
+		var averageData1 = [[10030, 0], [10030, 120]];
+
+		var line1 = d3.line()
+					.x( function(d) { return xAverage1(d[0]) })
+					.y( function(d) { console.log(d);return yAverage1(d[1]) });
+
+
+		var averageLine1= svgPollution.selectAll('.line1')
+													.data([averageData1]);
+
+
+		averageLine1
+			.enter()
+			.append('path')
+				.attr('class', 'line1')
+				.attr("fill", "none")
+				.attr("stroke", "#e78402")
+				.attr("stroke-width", '3px')
+				.attr('d', line1);
+
+		// text average line 1
+		var text1 = averageLine1.enter().append('text')
+				// .attr('x', x(30))
+				.attr("x", xAverage1(10500))
+				.attr('y', yAverage1(heightPollution+25))
+				.attr('text-anchor', 'start')
+				.text("UK average")
+				.style('fill', '#BBBDBF')
+				.style('font-weight', 'bold')
+				.style('font-size', '14px' );
+
+
+		var text2 = averageLine1.enter().append('text')
+				// .attr('x', x(30))
+				.attr("x", xAverage1(10500))
+				.attr('y', yAverage1(heightPollution+50))
+				.attr('text-anchor', 'start')
+				.text("10,000 kg")
+				.style('fill', '#BBBDBF')
+				.style('font-weight', 'bold')
+				.style('font-size', '18px' );
+
+
+		// second stacked bar
+		var xAverage2 = d3.scaleLinear()
+				.domain([0,25.83])
+				.range([0, widthPollution]);
+
+		var yAverage2 = d3.scaleLinear()
+				.domain([0, heightPollution])
+				.range([0, heightPollution])
+
+
+		var averageData2 = [[15, 0], [15, 120]];
+
+		var line2 = d3.line()
+					.x( function(d) { return xAverage2(d[0]) })
+					.y( function(d) { return yAverage2(d[1]) });
+
+
+		var averageLine2 = svgHectare.selectAll('.line2')
+													.data([averageData2]);
+
+
+		averageLine2
+			.enter()
+			.append('path')
+				.attr('class', 'line2')
+				.attr("fill", "none")
+				.attr("stroke", "#db8e29")
+				.attr("stroke-width", '3px')
+				.attr('d', line2);
+
+
+		// text average line 2
+		var text3 = averageLine2.enter().append('text')
+				// .attr('x', x(30))
+				.attr("x", xAverage2(15.5))
+				.attr('y', yAverage2(heightPollution+25))
+				.attr('text-anchor', 'start')
+				.text("UK average")
+				.style('fill', '#BBBDBF')
+				.style('font-weight', 'bold')
+				.style('font-size', '14px' );
+
+		var text4 = averageLine2.enter().append('text')
+				// .attr('x', x(30))
+				.attr("x", xAverage2(15.5))
+				.attr('y', yAverage2(heightPollution+25))
+				.attr('dy',"1.2em")
+				.attr('text-anchor', 'start')
+				.text("£15")
+				.style('fill', '#BBBDBF')
+				.style('font-weight', 'bold')
+				.style('font-size', '18px' );
+
+
+
+
+
 
 		// hide info and stacked bar charts onload
 		d3.select('#postcode-info').style('display', 'none');
