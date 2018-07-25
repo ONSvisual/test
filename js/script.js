@@ -351,7 +351,7 @@ if(Modernizr.webgl) {
 				.style('font-weight', 'bold')
 				.style('font-size', '14px' );
 
-		var text3 = averageLine2.enter().append('text')
+		var text4 = averageLine2.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage2(15.5))
 				.attr('y', yAverage2(heightPollution+25))
