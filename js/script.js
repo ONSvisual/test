@@ -21,7 +21,7 @@ if(Modernizr.webgl) {
 		var value='value';
 		var pollutant = "pollution_SO2";
 
-		var breaksData = [-145,190,392,700,2282,6762];
+		var breaksData = [-145,0,392,700,2282,6762];
 		var x_key;
 		var features;
 
