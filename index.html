@@ -252,13 +252,13 @@
 		}
 
 		#keydiv {
-			position:absolute;
-			/* top:40px; */
-			left:0px;
-			width:200px;
-			height:140px;
-			background-color:rgba(255,255,255,0.8);
-			z-index:1;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 200px;
+      height: 105px;
+      z-index:2;
+      background-color:rgba(255,255,255,0.7)
 		}
 
 		#currVal {
@@ -411,6 +411,16 @@
     cursor: pointer;
 }
 
+#pollutant-wrapper {
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+    width: 230px;
+    /* margin: 8px; */
+    padding: 8px;
+    background-color: rgba(255,255,255,0.7);
+}
+
 </style>
 
 </head>
@@ -516,8 +526,7 @@
     <p>Total: <span id='Total'></span></p> -->
   </div>
 
-  <div id='map' class="col-xs-8">
-    <!-- <button id="switch">switch</button> -->
+  <div class="col-xs-8">
     <form class="btn-form-fullwidth" role="radiogroup">
       <div class="form-group-fullwidth" role="radio" tabindex="0">
         <input id="button-1" class="radio-primary-fullwidth" type="radio" name="button" value="value" aria-checked="true" checked>
@@ -528,17 +537,22 @@
         <label class="label-primary-fullwidth" for="button-2">Avoided health costs (£)</label>
       </div>
     </form>
+  </div>
+
+  <div id='map' class="col-xs-8">
+    <!-- <button id="switch">switch</button> -->
+
     <div id="pollutant-wrapper" style="height:63px">
       <div id="select-container">
         <span id="select-text">Select a pollutant</span>
-        <select id="pollutant-select" class="js-example-basic-single" name="state">
-          <option value="pollution_SO2">SO2</option>
-          <option value="pollution_O3">O3</option>
-          <option value="pollution_NO2">NO2</option>
-          <option value="pollution_NH3">NH3</option>
-          <option value="pollution_PM10">PM10</option>
-          <option value="pollution_PM25">PM25</option>
+        <select id="pollutant-select" class="js-example-basic-single" style="width: 100%" name="state">
           <option value="pollution_total">Total</option>
+          <option value="pollution_SO2">Sulphur Dioxide (S02)</option>
+          <option value="pollution_O3">Ozone (03)</option>
+          <option value="pollution_NO2">Nitrogen Dioxide (NO2)</option>
+          <option value="pollution_NH3">Ammonia (NH3)</option>
+          <option value="pollution_PM10">Particulates < 10&mu;m (PM<sub>10</sub>)</option>
+          <option value="pollution_PM25">Particulates < 2.5&mu;m (PM<sub>2.5</sub>)</option>
         </select>
       </div>
     </div>

@@ -25,6 +25,10 @@ if(Modernizr.webgl) {
 		var x_key;
 		var features;
 
+		$('select').select2({
+		    minimumResultsForSearch: 20 // at least 20 results must be displayed
+		});
+
 		// d3.select("#switch").on("click", switchMe)
 		d3.selectAll("input[name='button']")
 		  .on('click', function() {
@@ -32,9 +36,11 @@ if(Modernizr.webgl) {
 				switchMe(value);
 				if(value === 'hectare') {
 					d3.select('#select-container').style('display', 'none');
+					d3.select('#pollutant-wrapper').style('display', 'none');
 				}
 				if(value === 'value') {
 					d3.select('#select-container').style('display', 'block')
+					d3.select('#pollutant-wrapper').style('display', 'block')
 				}
 				// createKey(breaksData);
 		  });
@@ -504,8 +510,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-					// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -515,19 +521,19 @@ if(Modernizr.webgl) {
 						'fill-outline-color':'rgba(0,0,0,0)',
             'fill-color': {
                 // Refers to the data of that specific property of the polygon
-              'property': 'pollution_SO2',
+              'property': 'pollution_total',
               // Prevents interpolation of colors between stops
               'base': 0,
               // Stops are an array of two element arrays:
               // [value_of_property, color]
               // The color applies to values equal or below the value_of_property
               'stops': [
-								[-145, '#eff3ff'],
-									[190, '#c6dbef'],
-									[392, '#9ecae1'],
-									[700, '#6baed6'],
-									[2282, '#3182bd'],
-									[6761, '#08519c']
+								[-2132, '#fddbc7'],
+									[0, '#d1e5f0'],
+									[4674, '#92c5de'],
+									[6236, '#4393c3'],
+									[8206, '#2166ac'],
+									[20059, '#2166ac']
               ]
             }
 
@@ -541,8 +547,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-										// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -606,60 +612,60 @@ if(Modernizr.webgl) {
 
 			var dataBreaks = {
 				'pollution_SO2':
-				[[-145, '#eff3ff'],
-					[190, '#c6dbef'],
-					[392, '#9ecae1'],
-					[700, '#6baed6'],
-					[2282, '#3182bd'],
-					[6761, '#08519c']],
+				[[-145, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[392, '#92c5de'],
+					[700, '#4393c3'],
+					[2282, '#2166ac'],
+					[6761, '#2166ac']],
 
 				'pollution_total':
-				[[-2132, '#eff3ff'],
-					[2349, '#c6dbef'],
-					[4674, '#9ecae1'],
-					[6236, '#6baed6'],
-					[8206, '#3182bd'],
-					[20059, '#3182bd']],
+				[[-2132, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[4674, '#92c5de'],
+					[6236, '#4393c3'],
+					[8206, '#2166ac'],
+					[20059, '#2166ac']],
 
 				'pollution_O3':
-				[[-891, '#eff3ff'],
-					[1552, '#c6dbef'],
-					[3434, '#9ecae1'],
-					[4769, '#6baed6'],
-					[5818, '#3182bd'],
-					[8892, '#3182bd']],
+				[[-891, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[3434, '#92c5de'],
+					[4769, '#4393c3'],
+					[5818, '#2166ac'],
+					[8892, '#2166ac']],
 
 				'pollution_NH3':
-				[[-79, '#eff3ff'],
-					[101, '#c6dbef'],
-					[218, '#9ecae1'],
-					[336, '#6baed6'],
-					[506, '#3182bd'],
-					[1449, '#3182bd']],
+				[[-79, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[218, '#92c5de'],
+					[336, '#4393c3'],
+					[506, '#2166ac'],
+					[1449, '#2166ac']],
 
 				'pollution_PM10':
-				[[-1161, '#eff3ff'],
-					[125, '#c6dbef'],
-					[336, '#9ecae1'],
-					[670, '#6baed6'],
-					[1134, '#3182bd'],
-					[4416, '#3182bd']],
+				[[-1161, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[336, '#92c5de'],
+					[670, '#4393c3'],
+					[1134, '#2166ac'],
+					[4416, '#2166ac']],
 
 				'pollution_PM25':
-				[[-178, '#eff3ff'],
-					[68, '#c6dbef'],
-					[175, '#9ecae1'],
-					[342, '#6baed6'],
-					[602, '#3182bd'],
-					[1662, '#3182bd']],
+				[[-178, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[175, '#92c5de'],
+					[342, '#4393c3'],
+					[602, '#2166ac'],
+					[1662, '#2166ac']],
 
 				'pollution_NO2':
-				[[-18, '#eff3ff'],
-					[137, '#c6dbef'],
-					[329, '#9ecae1'],
-					[573, '#6baed6'],
-					[925, '#3182bd'],
-					[3577, '#3182bd']]
+				[[-18, '#fddbc7'],
+					[0, '#d1e5f0'],
+					[329, '#92c5de'],
+					[573, '#4393c3'],
+					[925, '#2166ac'],
+					[3577, '#2166ac']]
 			}
 
 			breaksData = [dataBreaks[pollVal][0][0], dataBreaks[pollVal][1][0], dataBreaks[pollVal][2][0], dataBreaks[pollVal][3][0], dataBreaks[pollVal][4][0], dataBreaks[pollVal][5][0]]
@@ -758,12 +764,18 @@ if(Modernizr.webgl) {
                 point = map.project([lng,lat]);
 
                 features = map.queryRenderedFeatures(point);
-								console.log(features[1].properties.AREANM)
+
+								if(features[0].layer.id != "pollution") {
+									j=1;
+								} else {
+									j=0
+								}
+
 								// console.log(features[0].properties.pollution_total)
-								drawStacked(features[0].properties.pollution_total, features[1].properties.value);
-								d3.select('#num-leaf').text(features[0].properties.pollution_total);
-								d3.select('#num-coin').text('£'+features[1].properties.value);
-								d3.select('#yourNuts3').text(features[1].properties.AREANM);
+								drawStacked(features[j].properties.pollution_total, features[1].properties.value);
+								d3.select('#num-leaf').text(features[j].properties.pollution_total);
+								d3.select('#num-coin').text('£'+features[j+1].properties.value);
+								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 								// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
 								// d3.select('#O3').text(features[0].properties['pollution_O3']);
 								// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
@@ -772,8 +784,8 @@ if(Modernizr.webgl) {
 								// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
 								// d3.select('#Total').text(features[0].properties['pollution_total']);
 
-                map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
-								map.setFilter("state-fills-hover", ["==", "AREACD", features[1].properties.AREACD]);
+                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
             },4500);
 
@@ -871,13 +883,18 @@ if(Modernizr.webgl) {
 
 
 										features = map.queryRenderedFeatures(e.point);
-										console.log(features)
 
-										drawStacked(features[0].properties.pollution_total, features[1].properties.value);
+										if(features[0].layer.id != "pollution") {
+											j=1;
+										} else {
+											j=0
+										}
+
+										drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 										if(value==='value') {
-											setAxisVal(features[0].properties[pollutant]);
+											setAxisVal(features[j].properties[pollutant]);
 										} if(value==='hectare') {
-											setAxisVal(features[1].properties.value);
+											setAxisVal(features[j+1].properties.value);
 										}
 
 										d3.select('#onload-text').style('display', 'none');
@@ -885,12 +902,12 @@ if(Modernizr.webgl) {
 										d3.select('#postcode-info').style('display', 'block');
 
 
-		                map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
-										map.setFilter("state-fills-hover", ["==", "AREACD", features[1].properties.AREACD]);
+		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+										map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
-										d3.select('#num-leaf').text(features[0].properties.pollution_total);
-										d3.select('#num-coin').text('£'+features[1].properties.value);
-										d3.select('#yourNuts3').text(features[1].properties.AREANM);
+										d3.select('#num-leaf').text(features[j].properties.pollution_total);
+										d3.select('#num-coin').text('£'+features[j+1].properties.value);
+										d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 
 		        };
 		function disableMouseEvents() {
@@ -967,7 +984,7 @@ if(Modernizr.webgl) {
 				.attr("width", keywidth)
 				.attr("height",65);
 
-			var colour = colorbrewer['PuBu'][5];
+			var colour = [["#fddbc7"],["#d1e5f0"],["#92c5de"],["#4393c3"],["#2166ac"]]
 
 			var color = d3.scaleThreshold()
 			   .domain(breaks)
