@@ -386,6 +386,7 @@ if(Modernizr.webgl) {
 		  style: "data/style.json", //stylesheet location
 		  center: [0.12, 51.50], // starting position
 		  zoom: 8, // starting zoom
+			minZoom: 4,
 		  maxZoom: 20, //
 		  attributionControl: false
 		});
