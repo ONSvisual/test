@@ -30,12 +30,14 @@ if(Modernizr.webgl) {
 		    minimumResultsForSearch: 20 // at least 20 results must be displayed
 		});
 
+		d3.select('#switch-button').style('display', 'none');
+
 		d3.select('#switch-button').on('click', function() {
-			console.log(switchValue);
 
 			if(switchValue === 'hectare') {
 				d3.select('#select-container').style('display', 'none');
 				d3.select('#pollutant-wrapper').style('display', 'none');
+
 
 				// switch over the buttons
 				document.getElementById('button-1').checked = false;
@@ -635,6 +637,8 @@ if(Modernizr.webgl) {
 		})
 
 		$("#submitPost").click(function( event ) {
+						d3.select('#switch-button').style('display', 'block');
+
 						event.preventDefault();
 						event.stopPropagation();
 
@@ -933,6 +937,8 @@ if(Modernizr.webgl) {
 		};
 
 		function onClick(e) {
+
+										d3.select('#switch-button').style('display', 'block');
 
 
 										features = map.queryRenderedFeatures(e.point);
