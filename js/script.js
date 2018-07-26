@@ -412,6 +412,33 @@ if(Modernizr.webgl) {
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
 
+		//move the text of the average label for almost mobile
+		if(parseInt(d3.select("#postcode-info").style("width"))<222){
+			d3.select('#pollution-hectare').select('svg').selectAll('text').remove()
+
+			var text3 = averageLine2.enter().append('text')
+					// .attr('x', x(30))
+					.attr("x", xAverage2(15))
+					.attr('y', yAverage2(heightPollution+25))
+					.attr('text-anchor', 'end')
+					.text("UK average")
+					.style('fill', '#BBBDBF')
+					.style('font-weight', 'bold')
+					.style('font-size', '14px' );
+
+			var text4 = averageLine2.enter().append('text')
+					// .attr('x', x(30))
+					.attr("x", xAverage2(15))
+					.attr('y', yAverage2(heightPollution+25))
+					.attr('dy',"1.2em")
+					.attr('text-anchor', 'end')
+					.text("£15.53")
+					.style('fill', '#BBBDBF')
+					.style('font-weight', 'bold')
+					.style('font-size', '18px' );
+
+		}
+
 		pymChild.sendHeight();
 
 		// hide info and stacked bar charts onload
