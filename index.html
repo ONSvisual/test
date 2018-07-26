@@ -70,6 +70,7 @@
     box-sizing: border-box;
   }
 
+
   #leaf-text {
     padding-left: 10px;
     padding-right: 10px;
@@ -216,7 +217,7 @@
     width: 80%;
     float: left;
     font-weight: bold;
-    color: #0075A3;
+    color: #206095;
 
   }
 
@@ -281,8 +282,8 @@
 		}
 
 		#selectNav {
-			position:absolute;
-			top:-120px;
+			/* position:absolute; */
+			/* top:-120px; */
 			left:0px;
 			width:100%;
 			height:40px;
@@ -292,7 +293,7 @@
 
 		#keydiv {
 			position:absolute;
-			top:-80px;
+			bottom:0px;
 			left:0px;
 			width:100%;
 			height:80px;
@@ -471,7 +472,7 @@
     </div>
     <div id="container-pollution-removed" class="container-stats">
       <div class="pic">
-        <img src="images/leaf.svg" alt="">
+        <img src="images/leaf-w.svg" alt="">
       </div>
       <div id="leaf-text">
         <span class="bold-text">1 kg of pollution removed</span>
@@ -480,7 +481,7 @@
     </div>
     <div id="container-pollution-value" class="container-stats">
       <div class="pic">
-        <img src="images/coin.svg" alt="">
+        <img src="images/coin-w.svg" alt="">
       </div>
       <div id="coin-text">
         <span class="bold-text">£1 per unit of saved health costs</span>
@@ -503,6 +504,7 @@
       <div id="savings-text">
         <div style="margin-top:20px; margin-bottom:15px;">The amount saved in healthcare costs in your wider area, <span id="yourNuts3"></span></div>
       </div>
+      <button type="button" id="switch-button">Switch</button>
       <div id="container-detail-coin">
         <div class="pic-second">
           <img src="images/coin.svg" alt="">
