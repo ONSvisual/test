@@ -19,6 +19,7 @@ if(Modernizr.webgl) {
 		dvc = config.ons;
 		oldAREACD = "";
 		var value='value';
+		var switchValue = 'hectare';
 		var pollutant = "pollution_SO2";
 
 		var breaksData = [-145,0,392,700,2282,6762];
@@ -28,6 +29,41 @@ if(Modernizr.webgl) {
 		$('select').select2({
 		    minimumResultsForSearch: 20 // at least 20 results must be displayed
 		});
+
+		d3.select('#switch-button').on('click', function() {
+			console.log(switchValue);
+
+			if(switchValue === 'hectare') {
+				d3.select('#select-container').style('display', 'none');
+				d3.select('#pollutant-wrapper').style('display', 'none');
+
+				// switch over the buttons
+				document.getElementById('button-1').checked = false;
+				document.getElementById('button-1').setAttribute("aria-checked", false);
+
+				document.getElementById('button-2').setAttribute("aria-checked", true);
+		    document.getElementById('button-2').checked = true;
+
+				switchMe(switchValue);
+			}
+			if(switchValue === 'value') {
+				d3.select('#select-container').style('display', 'block');
+				d3.select('#pollutant-wrapper').style('display', 'block');
+
+				// switch over the buttons
+				document.getElementById('button-2').checked = false;
+				document.getElementById('button-2').setAttribute("aria-checked", false);
+
+				document.getElementById('button-1').setAttribute("aria-checked", true);
+				document.getElementById('button-1').checked = true;
+
+				switchMe(switchValue);
+			}
+
+			if(switchValue === 'hectare') {switchValue = 'value';}
+			else if(switchValue === 'value'){switchValue = 'hectare';}
+
+		})
 
 		// d3.select("#switch").on("click", switchMe)
 		d3.selectAll("input[name='button']")
@@ -206,9 +242,7 @@ if(Modernizr.webgl) {
 		        .attr('width', function(d) { console.log(d)
 		            return widthPollution - x(d.areaVal)
 		        })
-		        .attr('fill', function(d) {
-		            return "#0075A3";
-		        })
+		        .attr('fill', "#206095")
 
 
 
@@ -256,6 +290,7 @@ if(Modernizr.webgl) {
 									return "#174363";
 							})
 
+			pymChild.sendHeight();
 
 		} //end drawStacked
 
@@ -272,7 +307,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData1 = [[10030, 0], [10030, 120]];
+		var averageData1 = [[5618.68, 0], [5618.68, 120]];
 
 		var line1 = d3.line()
 					.x( function(d) { return xAverage1(d[0]) })
@@ -295,7 +330,7 @@ if(Modernizr.webgl) {
 		// text average line 1
 		var text1 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
-				.attr("x", xAverage1(10500))
+				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+25))
 				.attr('text-anchor', 'start')
 				.text("UK average")
@@ -306,10 +341,10 @@ if(Modernizr.webgl) {
 
 		var text2 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
-				.attr("x", xAverage1(10500))
+				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+50))
 				.attr('text-anchor', 'start')
-				.text("10,000 kg")
+				.text("5,618.68 kg")
 				.style('fill', '#BBBDBF')
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
@@ -325,7 +360,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData2 = [[15, 0], [15, 120]];
+		var averageData2 = [[15.53, 0], [15.53, 120]];
 
 		var line2 = d3.line()
 					.x( function(d) { return xAverage2(d[0]) })
@@ -349,7 +384,7 @@ if(Modernizr.webgl) {
 		// text average line 2
 		var text3 = averageLine2.enter().append('text')
 				// .attr('x', x(30))
-				.attr("x", xAverage2(15.5))
+				.attr("x", xAverage2(16))
 				.attr('y', yAverage2(heightPollution+25))
 				.attr('text-anchor', 'start')
 				.text("UK average")
@@ -359,19 +394,16 @@ if(Modernizr.webgl) {
 
 		var text4 = averageLine2.enter().append('text')
 				// .attr('x', x(30))
-				.attr("x", xAverage2(15.5))
+				.attr("x", xAverage2(16))
 				.attr('y', yAverage2(heightPollution+25))
 				.attr('dy',"1.2em")
 				.attr('text-anchor', 'start')
-				.text("£15")
+				.text("£15.53")
 				.style('fill', '#BBBDBF')
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
 
-
-
-
-
+		pymChild.sendHeight();
 
 		// hide info and stacked bar charts onload
 		d3.select('#postcode-info').style('display', 'none');
@@ -522,8 +554,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -559,8 +591,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										//"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -595,6 +627,12 @@ if(Modernizr.webgl) {
 
             // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
             map.on("mouseleave", "pollution", onLeave);
+						pymChild.sendHeight();
+
+
+		$("#pcText").click(function() {
+			$("#pcText").val('')
+		})
 
 		$("#submitPost").click(function( event ) {
 						event.preventDefault();
@@ -609,6 +647,8 @@ if(Modernizr.webgl) {
 						// d3.select('#postcode').text(myValue);
 
 						getCodes(myValue);
+						pymChild.sendHeight();
+
 		});
 
 		// update the map when selecting dropdown
@@ -739,7 +779,8 @@ if(Modernizr.webgl) {
 								//$("#successMessage").text("The postcode " + myPC + " is situated in " + areaName + " which has an area code of " + area).show();
 							} else {
 			          //$("#successMessage").hide();
-								//$("#pcError").text("Not a valid postcode I'm afraid").show();
+								console.log($("#pcText"))
+								$("#pcText").val("Not a valid postcode I'm afraid");
 							}
 						}
 
@@ -1124,6 +1165,8 @@ if(Modernizr.webgl) {
 	}
 
 	function switchMe(valueButton) {
+
+		// console.log(valueButton)
 
 		if(valueButton === 'hectare') {
 			// value = 'value';
