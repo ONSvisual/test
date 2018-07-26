@@ -20,9 +20,9 @@ if(Modernizr.webgl) {
 		oldAREACD = "";
 		var value='value';
 		var switchValue = 'hectare';
-		var pollutant = "pollution_SO2";
-
-		var breaksData = [-145,0,392,700,2282,6762];
+		var pollutant = "pollution_total";
+		var keyunitvalue='value'
+		var breaksData = [-2132,0,4674,6236,8206,20059];
 		var x_key;
 		var features;
 
@@ -31,12 +31,14 @@ if(Modernizr.webgl) {
 		});
 
 		d3.select('#switch-button').style('display', 'none');
+		console.log(d3.select('#switch-button'))
 
 		d3.select('#switch-button').on('click', function() {
 
-			if(switchValue === 'hectare') {
+			if(switchValue === 'value') {
 				d3.select('#select-container').style('display', 'none');
 				d3.select('#pollutant-wrapper').style('display', 'none');
+				d3.select('#switchy').html('Avoided');
 
 
 				// switch over the buttons
@@ -46,11 +48,15 @@ if(Modernizr.webgl) {
 				document.getElementById('button-2').setAttribute("aria-checked", true);
 		    document.getElementById('button-2').checked = true;
 
+				d3.select("#keyunit").text("Kilograms of pollutant removed per hectare");
+
 				switchMe(switchValue);
 			}
-			if(switchValue === 'value') {
+			if(switchValue === 'hectare') {
 				d3.select('#select-container').style('display', 'block');
 				d3.select('#pollutant-wrapper').style('display', 'block');
+				d3.select('#switchy').html('Avoided');
+
 
 				// switch over the buttons
 				document.getElementById('button-2').checked = false;
@@ -59,9 +65,11 @@ if(Modernizr.webgl) {
 				document.getElementById('button-1').setAttribute("aria-checked", true);
 				document.getElementById('button-1').checked = true;
 
+				d3.select("#keyunit").text("£ saved in avoided healthcare costs");
+
 				switchMe(switchValue);
 			}
-
+			//
 			if(switchValue === 'hectare') {switchValue = 'value';}
 			else if(switchValue === 'value'){switchValue = 'hectare';}
 
@@ -71,6 +79,7 @@ if(Modernizr.webgl) {
 		d3.selectAll("input[name='button']")
 		  .on('click', function() {
 				value = this.value;
+				keyunitvalue=this.value;
 				switchMe(value);
 				if(value === 'hectare') {
 					d3.select('#select-container').style('display', 'none');
@@ -244,7 +253,7 @@ if(Modernizr.webgl) {
 		        .attr('width', function(d) { console.log(d)
 		            return widthPollution - x(d.areaVal)
 		        })
-		        .attr('fill', "#206095")
+		        .attr('fill', "#266D4A")
 
 
 
@@ -288,9 +297,7 @@ if(Modernizr.webgl) {
 							.attr('width', function(d) { console.log(d)
 									return widthHectare - x_hectare(d.areaVal)
 							})
-							.attr('fill', function(d) {
-									return "#174363";
-							})
+							.attr('fill', "#174363");
 
 			pymChild.sendHeight();
 
@@ -556,7 +563,7 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
 					// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
@@ -574,12 +581,12 @@ if(Modernizr.webgl) {
               // [value_of_property, color]
               // The color applies to values equal or below the value_of_property
               'stops': [
-								[-2132, '#fddbc7'],
-									[0, '#d1e5f0'],
-									[4674, '#92c5de'],
-									[6236, '#4393c3'],
-									[8206, '#2166ac'],
-									[20059, '#2166ac']
+								[-2132, '#f6e8c3'],
+									[0, '#B5C9BF'],
+									[4674, '#91B2A1'],
+									[6236, '#6D9B84'],
+									[8206, '#498467'],
+									[20059, '#266D4A']
               ]
             }
 
@@ -593,7 +600,7 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
 										// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
@@ -668,60 +675,60 @@ if(Modernizr.webgl) {
 
 			var dataBreaks = {
 				'pollution_SO2':
-				[[-145, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[392, '#92c5de'],
-					[700, '#4393c3'],
-					[2282, '#2166ac'],
-					[6761, '#2166ac']],
+				[[-145, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[392, '#91B2A1'],
+					[700, '#6D9B84'],
+					[2282, '#498467'],
+					[6761, '#266D4A']],
 
 				'pollution_total':
-				[[-2132, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[4674, '#92c5de'],
-					[6236, '#4393c3'],
-					[8206, '#2166ac'],
-					[20059, '#2166ac']],
+				[[-2132, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[4674, '#91B2A1'],
+					[6236, '#6D9B84'],
+					[8206, '#498467'],
+					[20059, '#266D4A']],
 
 				'pollution_O3':
-				[[-891, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[3434, '#92c5de'],
-					[4769, '#4393c3'],
-					[5818, '#2166ac'],
-					[8892, '#2166ac']],
+				[[-891, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[3434, '#91B2A1'],
+					[4769, '#6D9B84'],
+					[5818, '#498467'],
+					[8892, '#266D4A']],
 
 				'pollution_NH3':
-				[[-79, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[218, '#92c5de'],
-					[336, '#4393c3'],
-					[506, '#2166ac'],
-					[1449, '#2166ac']],
+				[[-79, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[218, '#91B2A1'],
+					[336, '#6D9B84'],
+					[506, '#498467'],
+					[1449, '#266D4A']],
 
 				'pollution_PM10':
-				[[-1161, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[336, '#92c5de'],
-					[670, '#4393c3'],
-					[1134, '#2166ac'],
-					[4416, '#2166ac']],
+				[[-1161, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[336, '#91B2A1'],
+					[670, '#6D9B84'],
+					[1134, '#498467'],
+					[4416, '#266D4A']],
 
 				'pollution_PM25':
-				[[-178, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[175, '#92c5de'],
-					[342, '#4393c3'],
-					[602, '#2166ac'],
-					[1662, '#2166ac']],
+				[[-178, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[175, '#91B2A1'],
+					[342, '#6D9B84'],
+					[602, '#498467'],
+					[1662, '#266D4A']],
 
 				'pollution_NO2':
-				[[-18, '#fddbc7'],
-					[0, '#d1e5f0'],
-					[329, '#92c5de'],
-					[573, '#4393c3'],
-					[925, '#2166ac'],
-					[3577, '#2166ac']]
+				[[-18, '#f6e8c3'],
+					[0, '#B5C9BF'],
+					[329, '#91B2A1'],
+					[573, '#6D9B84'],
+					[925, '#498467'],
+					[3577, '#266D4A']]
 			}
 
 			breaksData = [dataBreaks[pollVal][0][0], dataBreaks[pollVal][1][0], dataBreaks[pollVal][2][0], dataBreaks[pollVal][3][0], dataBreaks[pollVal][4][0], dataBreaks[pollVal][5][0]]
@@ -1043,7 +1050,11 @@ if(Modernizr.webgl) {
 				.attr("width", keywidth)
 				.attr("height",65);
 
-			var colour = [["#fddbc7"],["#d1e5f0"],["#92c5de"],["#4393c3"],["#2166ac"]]
+			var colour = [["#f6e8c3"],["#B5C9BF"],["#91B2A1"],["#6D9B84"],["#498467"]]//,["#266D4A"]]
+
+
+			var colourblue = [["#fddbc7"],["#d1e5f0"],["#92c5de"],["#4393c3"],["#2166ac"]]
+
 
 			var color = d3.scaleThreshold()
 			   .domain(breaks)
@@ -1140,12 +1151,15 @@ if(Modernizr.webgl) {
 			//Temporary	hardcode unit text
 			dvc.unittext = "change in life expectancy";
 
+			keyunitvalue=$('input[name=button]:checked').val()
+
 			if(value==='value') {
 				d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit);
 			}
 			if(value==='hectare') {
 				d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit2);
 			}
+
 
 
 	} // Ends create key
@@ -1182,6 +1196,7 @@ if(Modernizr.webgl) {
 			map.setPaintProperty('onekmhover', 'line-opacity', 0);
 			defineBreaks();
 			setupScales();
+			// createKey(breaksData);
 		} if(valueButton==='value') {
 			// value = 'hectare';
 			map.setPaintProperty('area', 'fill-opacity', 0.0);
