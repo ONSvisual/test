@@ -353,7 +353,7 @@ if(Modernizr.webgl) {
 				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+50))
 				.attr('text-anchor', 'start')
-				.text("5,618.68 kg")
+				.text("5,619 kg")
 				.style('fill', '#BBBDBF')
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
@@ -837,7 +837,7 @@ if(Modernizr.webgl) {
 
 								// console.log(features[0].properties.pollution_total)
 								drawStacked(features[j].properties.pollution_total, features[1].properties.value);
-								d3.select('#num-leaf').text(features[j].properties.pollution_total);
+								d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
 								d3.select('#num-coin').text('£'+features[j+1].properties.value);
 								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 								// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
@@ -971,7 +971,7 @@ if(Modernizr.webgl) {
 		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 										map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
-										d3.select('#num-leaf').text(features[j].properties.pollution_total);
+										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
 										d3.select('#num-coin').text('£'+features[j+1].properties.value);
 										d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 
@@ -1053,8 +1053,13 @@ if(Modernizr.webgl) {
 			var colour = [["#f6e8c3"],["#B5C9BF"],["#91B2A1"],["#6D9B84"],["#498467"]]//,["#266D4A"]]
 
 
-			var colourblue = [["#fddbc7"],["#d1e5f0"],["#92c5de"],["#4393c3"],["#2166ac"]]
 
+			var colourblue = [["#eff3ff"],["#bdd7e7"],["#6baed6"],["#3182bd"],["#08519c"]]
+			if(value==='hectare'){
+				colour=colourblue
+			}
+
+			console.log(breaks)
 
 			var color = d3.scaleThreshold()
 			   .domain(breaks)
