@@ -74,6 +74,8 @@ time, mark, audio, video {
   #container-pollution-removed {
     background-color: #266D4A;
     height: 88px;
+    margin-top:7px !important;
+
   }
 
   #container-pollution-value {
@@ -239,7 +241,7 @@ time, mark, audio, video {
     -webkit-font-smoothing: antialiased;
     font-weight: 600;
     font-size: 16px;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
     width: 100%;
   }
 
@@ -248,7 +250,7 @@ time, mark, audio, video {
     display: -ms-flexbox;
     display: flex;
     cursor: pointer;
-    height: 40px;
+  /*  height: 63px;*/
     box-sizing: border-box;
     text-align: center;
     width: 100%;
@@ -350,7 +352,7 @@ time, mark, audio, video {
 
 	@media (min-width: 599px) {
 		#map {
-			height: 700px;
+			height: 650px;
 			/* width: 100%; */
 		}
 
@@ -401,7 +403,7 @@ time, mark, audio, video {
 			/* top:-120px; */
 			left:0px;
 			width:100%;
-			height:40px;
+			height:72px;
 			background-color:rgba(255,255,255,0.8);
 			z-index:3;
 		}
@@ -551,6 +553,11 @@ time, mark, audio, video {
     background-color: rgba(255,255,255,0.7);
 }
 
+#switchMe {
+  text-decoration:underline;
+
+}
+
 </style>
 
 </head>
@@ -587,10 +594,28 @@ time, mark, audio, video {
     </div>
   </form> -->
 
+
+
+
   <div id="info-box" class="col-xs-12 col-sm-4">
     <div id="scene-image">
       <img src="images/scene.svg" alt="">
     </div>
+
+    <div id='selectNav'>
+      <span style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
+      <div>
+        <form style="margin-top: 10px; height: 40px" id="pcForm">
+          <div style="display:inline;float:left;width:calc(100% - 40px)">
+            <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
+          </div>
+          <div style="display:inline;float:right">
+              <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div style="margin-top:15px;" id="onload-text">
       This calculator will show you
     </div>
@@ -613,23 +638,10 @@ time, mark, audio, video {
       </div>
     </div>
 
-    <div id='selectNav'>
-      <span style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
-      <div>
-        <form style="margin-top: 10px; height: 40px" id="pcForm">
-          <div style="display:inline;float:left;width:calc(100% - 40px)">
-            <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
-          </div>
-          <div style="display:inline;float:right">
-              <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <div id="postcode-info">
       <div id="postcode-text">
-        <div style="margin-top:20px; margin-bottom:15px;">Pollution removed by vegetation in this km square</div>
+        <div style="margin-top:20px; margin-bottom:15px;">Total pollution removed by vegetation in this km square</div>
       </div>
       <div id="container-detail-leaf">
         <div class="pic-second">
@@ -653,14 +665,14 @@ time, mark, audio, video {
           <img src="images/coin.svg" alt="">
         </div>
         <div id="info-coin"style="padding-top:10px;">
-          <span id="num-coin"style="font-size:30px;">£7</span>
+          <span id="num-coin"style="font-size:30px;">£7</span> per person
         </div>
       </div>
 
       <div id="pollution-hectare"></div>
     </div>
-
-    <button type="button" id="switch-button" class="btn-primary large"><span id='switchy'>Next</span></button>
+    <p id="switchMe">View map</p>
+    <!--<button type="button" id="switch-button" class="btn-primary large"><span id='switchy'>Next</span></button>-->
 
     <!-- <p>SO2: <span id='SO2'></span></p>
     <p>O3: <span id='O3'></span></p>
@@ -669,7 +681,16 @@ time, mark, audio, video {
     <p>PM10: <span id='PM10'></span></p>
     <p>PM25: <span id='PM25'></span></p>
     <p>Total: <span id='Total'></span></p> -->
+
+
+    <!--social buttons-->
+    <div id="social">
+    </div>
+
+
   </div>
+
+
 
   <div id="buttongroup" class="col-xs-12 col-sm-8">
     <form class="btn-form-fullwidth" role="radiogroup">
@@ -679,7 +700,7 @@ time, mark, audio, video {
       </div>
       <div class="form-group-fullwidth" role="radio" tabindex="2">
         <input id="button-2" class="radio-primary-fullwidth" type="radio" name="button" value="hectare" aria-checked="false">
-        <label class="label-primary-fullwidth" for="button-2">Avoided health damage costs (£)</label>
+        <label class="label-primary-fullwidth" for="button-2">Avoided health damage costs (£ per person)</label>
       </div>
     </form>
   </div>

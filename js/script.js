@@ -30,52 +30,65 @@ if(Modernizr.webgl) {
 		    minimumResultsForSearch: 20 // at least 20 results must be displayed
 		});
 
-		d3.select('#switch-button').style('display', 'none');
-		console.log(d3.select('#switch-button'))
+	//	d3.select('#switch-button').style('display', 'none');
+		d3.select('#switchMe').style('display', 'none');
+		//console.log(d3.select('#switch-button'))
 
-		d3.select('#switch-button').on('click', function() {
+		d3.select('#switchMe').on('click', function() {
+			document.getElementById('button-1').checked = false;
+			document.getElementById('button-1').setAttribute("aria-checked", false);
 
-			if(switchValue === 'value') {
-				d3.select('#select-container').style('display', 'none');
-				d3.select('#pollutant-wrapper').style('display', 'none');
-				d3.select('#switchy').html('Avoided');
+			document.getElementById('button-2').setAttribute("aria-checked", true);
+			document.getElementById('button-2').checked = true;
 
+			d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
 
-				// switch over the buttons
-				document.getElementById('button-1').checked = false;
-				document.getElementById('button-1').setAttribute("aria-checked", false);
+			switchMe(switchValue)
+		});
 
-				document.getElementById('button-2').setAttribute("aria-checked", true);
-		    document.getElementById('button-2').checked = true;
-
-				d3.select("#keyunit").text("Kilograms of pollutant removed per hectare");
-
-				switchMe(switchValue);
-			}
-			if(switchValue === 'hectare') {
-				d3.select('#select-container').style('display', 'block');
-				d3.select('#pollutant-wrapper').style('display', 'block');
-				d3.select('#switchy').html('Avoided');
-
-
-				// switch over the buttons
-				document.getElementById('button-2').checked = false;
-				document.getElementById('button-2').setAttribute("aria-checked", false);
-
-				document.getElementById('button-1').setAttribute("aria-checked", true);
-				document.getElementById('button-1').checked = true;
-
-				d3.select("#keyunit").text("£ saved in avoided healthcare costs");
-
-				switchMe(switchValue);
-			}
-			//
-			if(switchValue === 'hectare') {switchValue = 'value';}
-			else if(switchValue === 'value'){switchValue = 'hectare';}
-
-		})
-
-		// d3.select("#switch").on("click", switchMe)
+		// d3.select('#switch-button').on('click', function() {
+		//
+		// 	if(switchValue === 'value') {
+		// 		d3.select('#select-container').style('display', 'none');
+		// 		d3.select('#pollutant-wrapper').style('display', 'none');
+		// 		d3.select('#switchy').html('Avoided');
+		//
+		//
+		// 		// switch over the buttons
+		// 		document.getElementById('button-1').checked = false;
+		// 		document.getElementById('button-1').setAttribute("aria-checked", false);
+		//
+		// 		document.getElementById('button-2').setAttribute("aria-checked", true);
+		//     document.getElementById('button-2').checked = true;
+		//
+		// 		d3.select("#keyunit").text("Kilograms of pollutant removed per hectare");
+		//
+		// 		switchMe(switchValue);
+		// 	}
+		// 	if(switchValue === 'hectare') {
+		// 		d3.select('#select-container').style('display', 'block');
+		// 		d3.select('#pollutant-wrapper').style('display', 'block');
+		// 		d3.select('#switchy').html('Avoided');
+		//
+		//
+		// 		// switch over the buttons
+		// 		document.getElementById('button-2').checked = false;
+		// 		document.getElementById('button-2').setAttribute("aria-checked", false);
+		//
+		// 		document.getElementById('button-1').setAttribute("aria-checked", true);
+		// 		document.getElementById('button-1').checked = true;
+		//
+		// 		d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
+		//
+		// 		switchMe(switchValue);
+		// 	}
+		// 	//
+		// 	if(switchValue === 'hectare') {switchValue = 'value';}
+		// 	else if(switchValue === 'value'){switchValue = 'hectare';}
+		//
+		// })
+		//
+		// // d3.select("#switch").on("click", switchMe)
 		d3.selectAll("input[name='button']")
 		  .on('click', function() {
 				value = this.value;
@@ -108,11 +121,11 @@ if(Modernizr.webgl) {
 
 		// value removed
 		var widthPollution = document.getElementById('pollution-removed').clientWidth;
-		var heightPollution = 120;
+		var heightPollution = 80;
 
 		var marginPollution = {
 	    top: 0,
-	    bottom: 60,
+	    bottom: 40,
 	    left: 0,
 	    right: 0
 		};
@@ -153,11 +166,11 @@ if(Modernizr.webgl) {
 
 		// hectare
 		var widthHectare = document.getElementById('pollution-hectare').clientWidth;
-		var heightHectare = 120;
+		var heightHectare = 80;
 
 		var marginHectare = {
 	    top: 0,
-	    bottom: 60,
+	    bottom: 40,
 	    left: 0,
 	    right: 0
 		};
@@ -209,7 +222,8 @@ if(Modernizr.webgl) {
 		// function that inserts data to stacked back
 		// run function on load with total pollution data from a postcode or 0
 
-		drawStacked(0, 0)
+		drawStacked(0, 0);
+		social();
 
 		function drawStacked(data,data2) {
 
@@ -340,10 +354,10 @@ if(Modernizr.webgl) {
 		var text1 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
-				.attr('y', yAverage1(heightPollution+25))
+				.attr('y', yAverage1(heightPollution+17))
 				.attr('text-anchor', 'start')
 				.text("UK average")
-				.style('fill', '#BBBDBF')
+				.style('fill', '#666')
 				.style('font-weight', 'bold')
 				.style('font-size', '14px' );
 
@@ -351,10 +365,11 @@ if(Modernizr.webgl) {
 		var text2 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
-				.attr('y', yAverage1(heightPollution+50))
+				.attr('y', yAverage1(heightPollution+15))
+				.attr('dy',"1.2em")
 				.attr('text-anchor', 'start')
 				.text("5,619 kg")
-				.style('fill', '#BBBDBF')
+				.style('fill', '#666')
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
 
@@ -394,21 +409,21 @@ if(Modernizr.webgl) {
 		var text3 = averageLine2.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage2(16))
-				.attr('y', yAverage2(heightPollution+25))
+				.attr('y', yAverage2(heightPollution+17))
 				.attr('text-anchor', 'start')
 				.text("UK average")
-				.style('fill', '#BBBDBF')
+				.style('fill', '#666')
 				.style('font-weight', 'bold')
 				.style('font-size', '14px' );
 
 		var text4 = averageLine2.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage2(16))
-				.attr('y', yAverage2(heightPollution+25))
+				.attr('y', yAverage2(heightPollution+15))
 				.attr('dy',"1.2em")
 				.attr('text-anchor', 'start')
 				.text("£15.53")
-				.style('fill', '#BBBDBF')
+				.style('fill', '#666')
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
 
@@ -452,14 +467,14 @@ if(Modernizr.webgl) {
 		  container: 'map', // container id
 		 // style: style,
 		  style: "data/style.json", //stylesheet location
-		  center: [0.12, 51.50], // starting position
-		  zoom: 8, // starting zoom
+		  center: [0, 51.50], // starting position
+		  zoom: 9, // starting zoom
 			minZoom: 4,
 		  maxZoom: 20, //
 		  attributionControl: false
 		});
 		//add fullscreen option
-		map.addControl(new mapboxgl.FullscreenControl());
+		//map.addControl(new mapboxgl.FullscreenControl());
 
 		// Add zoom and rotation controls to the map.
 		map.addControl(new mapboxgl.NavigationControl());
@@ -590,7 +605,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+					//"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -626,7 +642,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+										//"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -669,7 +686,8 @@ if(Modernizr.webgl) {
 		})
 
 		$("#submitPost").click(function( event ) {
-						d3.select('#switch-button').style('display', 'block');
+						//d3.select('#switch-button').style('display', 'block');
+
 
 						event.preventDefault();
 						event.stopPropagation();
@@ -828,9 +846,17 @@ if(Modernizr.webgl) {
 
 		  //go on to filter
 		  //Translate lng lat coords to point on screen
+
+			if($("body").width() < 600) {
+					durationlength = 500;
+			} else {
+					durationlength = 4000;
+			}
+		//	durationlength
+
 		  point = map.project([lng,lat]);
 
-			map.flyTo({center:[lng,lat], zoom:10, duration:4000})
+			map.flyTo({center:[lng,lat], zoom:10, duration:durationlength})
 
 			map.on('flystart', function(){
 				flying=true;
@@ -846,6 +872,8 @@ if(Modernizr.webgl) {
                 // var features = map.queryRenderedFeatures(queryBox);
                 // console.log(features)
                 // map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
+								d3.select('#switchMe').style('display', 'block');
+
 								d3.select('#onload-text').style('display', 'none');
 								d3.selectAll('.container-stats').style('display', 'none');
 								d3.select('#postcode-info').style('display', 'block');
@@ -876,7 +904,7 @@ if(Modernizr.webgl) {
                 map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
-            },4500);
+            }, durationlength + 500);
 
 			// map.on('moveend',function(e){
 			//
@@ -970,8 +998,8 @@ if(Modernizr.webgl) {
 
 		function onClick(e) {
 
-										d3.select('#switch-button').style('display', 'block');
-
+										//d3.select('#switch-button').style('display', 'block');
+										d3.select('#switchMe').style('display', 'block');
 
 										features = map.queryRenderedFeatures(e.point);
 
@@ -1067,7 +1095,7 @@ if(Modernizr.webgl) {
 
 			var breaks = config;
 
-			keywidth = d3.select("#keydiv").node().getBoundingClientRect().width;
+			keywidth = $("#keydiv").width();
 
 			var svgkey = d3.select("#keydiv")
 				.append("svg")
@@ -1216,7 +1244,7 @@ if(Modernizr.webgl) {
 
 	function switchMe(valueButton) {
 
-		// console.log(valueButton)
+		 console.log(valueButton)
 
 		if(valueButton === 'hectare') {
 			// value = 'value';
@@ -1270,6 +1298,83 @@ if(Modernizr.webgl) {
 		navigator.geolocation.getCurrentPosition(success, error, options);
 	}
 
+	function social() {
+		d3.select("#social")
+		.append("div")
+		.attr("id", "share")
+		.style("width","160px")
+		.style("height", "30px")
+		.style("float", "left");
+
+	d3.select("#share")
+		.append("p")
+		.style('margin-top',"10px")
+		.style("font-weight","bold")
+		.style("color","#666")
+		.text("share your results")
+
+
+	var ParentURL = (window.location != window.parent.location)
+	            ? document.referrer
+	            : document.location;
+
+	//appending the buttons
+	d3.select("#share").append("a")
+		.attr("id","facebookShare")
+		.attr("href","https://www.facebook.com/sharer/sharer.php?u=" + ParentURL)
+		.attr("target","_blank")
+		.style("display","block")
+		.style("height","25px")
+		.style("width","25px")
+		.style("background","#fff")
+		.style("margin-top","5px")
+		.style("margin-right","7px")
+		.style("margin-bottom","5px")
+		.style("float","left")
+		.style("opacity","0.7")
+		.attr("title","Facebook")
+		.append("img")
+		.style("height","25px")
+		.style("width","25px")
+		.attr("src","./images/facebook-grey.png");
+
+	d3.select("#share").append("a")
+		.attr("id","twitterShare")
+		.attr("href","https://twitter.com/intent/tweet?text=" + ParentURL)
+		.attr("target","_blank")
+		.style("display","block")
+		.style("height","25px")
+		.style("width","25px")
+		.style("background","#fff")
+		.style("margin-top","5px")
+		.style("margin-right","7px")
+		.style("margin-bottom","5px")
+		.style("float","left")
+		.style("opacity","0.7")
+		.attr("title","Twitter")
+		.append("img")
+		.style("height","25px")
+		.style("width","25px")
+		.attr("src","./images/twitter-grey.png");
+
+
+	//on mouseover
+	d3.select("#facebookShare").on("mouseover", function() {
+		d3.select("#facebookShare").style("opacity","1");
+	});
+	d3.select("#twitterShare").on("mouseover", function() {
+		d3.select("#twitterShare").style("opacity","1");
+	});
+
+	//on mouseout
+	d3.select("#facebookShare").on("mouseout", function() {
+		d3.select("#facebookShare").style("opacity","0.7");
+	});
+	d3.select("#twitterShare").on("mouseout", function() {
+		d3.select("#twitterShare").style("opacity","0.7");
+	});
+
+}
 
 
 		function selectlist(datacsv) {
