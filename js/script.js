@@ -555,7 +555,7 @@ if(Modernizr.webgl) {
 				"source": {
 					"type": "vector",
 					"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-					// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -592,7 +592,7 @@ if(Modernizr.webgl) {
                 "source": {
                     "type": "vector",
 										"tiles": ["http://localhost:8001/tiles/{z}/{x}/{y}.pbf"],
-										// "tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
