@@ -2,7 +2,7 @@
 "maptitle": "map about pollution",
 "varcolour": "PuBu",
 "varunit": "Kilograms of pollutant removed per hectare",
-"varunit2": "£ saved in avoided healthcare costs",
+"varunit2": "£ per person saved in avoided healthcare costs",
 "groups":["white","black","asian","mixed","other"],
 "colours":["#377eb8","#ff7f00","#4daf4a","#984ea3","#e41a1c"],
 "displaydecimals": 1,
