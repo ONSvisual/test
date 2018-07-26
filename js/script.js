@@ -1066,7 +1066,7 @@ if(Modernizr.webgl) {
 			// Set up scales for legend
 			x_key = d3.scaleLinear()
 				.domain([breaks[0], breaks[5]]) /*range for data*/
-				.range([0,keywidth-30]); /*range for pixels*/
+				.range([0,keywidth-32]); /*range for pixels*/
 
 
 			var xAxis = d3.axisBottom(x_key)

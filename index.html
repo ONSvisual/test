@@ -73,13 +73,54 @@ time, mark, audio, video {
 
   #container-pollution-removed {
     background-color: #266D4A;
-    height: 95px;
+    height: 88px;
   }
 
   #container-pollution-value {
     background-color: #174363;
     /* clear: left; */
-    height: 100px;
+    height: 108px;
+  }
+
+  @media screen and (min-width:600px) and (max-width:865px) {
+    #container-pollution-value {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:826px) {
+    #container-pollution-removed {
+      height:108px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:738px) {
+    #container-pollution-value {
+      height:152px;
+    }
+
+    #container-pollution-removed {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:668px) {
+    #container-pollution-removed {
+      height:152px;
+    }
+  }
+
+
+  @media screen and (min-width:600px) and (max-width:634px) {
+    #container-pollution-value {
+      height:175px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:620px) {
+    #container-pollution-value {
+      height:200px;
+    }
   }
 
   .container-stats {
@@ -213,12 +254,18 @@ time, mark, audio, video {
     width: 100%;
   }
 
+  @media screen and (min-width:599px) and (max-width:938px) {
+    .form-group-fullwidth {
+      height:66px;
+    }
+  }
+
   .form-group-fullwidth:last-child {
     border-right: solid 1px #A6A8AB;
   }
 
   .label-primary-fullwidth {
-    padding: 8px 16px;
+    padding: 8px 14px;
     cursor: pointer;
     color: #333;
     background: #F9F9F9;
