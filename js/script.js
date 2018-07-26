@@ -121,7 +121,7 @@ if(Modernizr.webgl) {
 
 		// value removed
 		var widthPollution = document.getElementById('pollution-removed').clientWidth;
-		var heightPollution = 80;
+		var heightPollution = 81;
 
 		var marginPollution = {
 	    top: 0,
