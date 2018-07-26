@@ -9,7 +9,7 @@
   <link href='css/mapbox-gl.css' rel='stylesheet'/>
   <link href='css/bootstrap-grid.css' rel='stylesheet'/>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">  <link rel="stylesheet" href="css/chosen.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <link href="css/select2.min.css" rel="stylesheet" />
 
 <style>
 
@@ -72,14 +72,14 @@ time, mark, audio, video {
   }
 
   #container-pollution-removed {
-    background-color: #0075A3;
-    height: 85px;
+    background-color: #266D4A;
+    height: 95px;
   }
 
   #container-pollution-value {
     background-color: #174363;
     /* clear: left; */
-    height: 85px;
+    height: 100px;
   }
 
   .container-stats {
@@ -121,6 +121,40 @@ time, mark, audio, video {
   .bold-text {
     font-weight: 700;
   }
+
+  /* Primary button */
+
+  .btn-primary {
+    background-color: #206095;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color:#003C57;
+  }
+
+  .btn-primary:focus {
+    outline: 3px solid #FF9933 !important;
+    outline-offset: -1px;
+    background-color:#003C57;
+  }
+
+  .large {
+    font-family: 'Open Sans',Arial,sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+    cursor: pointer;
+    height: 40px;
+    padding: 0 32px 0 32px;
+    border: 0 none;
+    text-align: center;
+    -webkit-appearance: none;
+    transition: background-color 0.25s ease-out;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
 
 
   /* Button group styles */
@@ -230,9 +264,14 @@ time, mark, audio, video {
     padding-bottom: 5px;
   }
 
-  #postcode-text, #savings-text {
+  #savings-text {
     font-weight: bold;
     color: #0075A3;
+  }
+
+  #postcode-text {
+    font-weight: bold;
+    color: #266D4A
   }
 
   .pic-second {
@@ -244,7 +283,7 @@ time, mark, audio, video {
     width: 80%;
     float: left;
     font-weight: bold;
-    color: #206095;
+    color: #266D4A;
 
   }
 
@@ -272,12 +311,13 @@ time, mark, audio, video {
 			/* position:absolute; */
 			top:0px;
 			left:0px;
-			width:200px;
-			height:40px;
+			/* width:100%; */
+			/* height:40px; */
 			background-color:rgba(255,255,255,0.8);
 			z-index:1;
-      margin-top: 5px;
-		}
+      margin-top: 20px;
+      margin-right: 20px;
+    }
 
 		#keydiv {
       position: absolute;
@@ -309,13 +349,10 @@ time, mark, audio, video {
 		}
 
 		#selectNav {
-<<<<<<< HEAD
 
-=======
 			/* position:absolute; */
 			/* top:-120px; */
 			left:0px;
->>>>>>> 5613d686b26247f5e3965d2159c7329ce1ae6492
 			width:100%;
 			height:40px;
 			background-color:rgba(255,255,255,0.8);
@@ -331,7 +368,7 @@ time, mark, audio, video {
     }
 
 		#keydiv {
-      
+
       position: absolute;
       bottom: 0px;
       left: 0px;
@@ -428,12 +465,18 @@ time, mark, audio, video {
 }
 
 #pcText {
-			width: 130px;
-			/* height:42px; */
-			padding: 3px;
+			width: 100%;
+			height:40px;
+			/* padding: 3px; */
       /* padding-bottom: 10px; */
 			color: #999999;
       font-size: 16px;
+      box-sizing: border-box;
+      border:1px solid #f93;
+}
+
+#pcText:focus{
+  border:1px solid #36add9
 }
 
 .btnEnable {
@@ -501,23 +544,16 @@ time, mark, audio, video {
     <div id="scene-image">
       <img src="images/scene.svg" alt="">
     </div>
-    <span style="margin-bottom:15px; font-weight:bold; color:#0075A3">Enter your postcode</span>
-    <div id='selectNav'>
-      <form id="pcForm">
-        <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
-        <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
-      </form>
-    </div>
     <div style="margin-top:15px;" id="onload-text">
-      Text here if we want it
+      This calculator will show you
     </div>
     <div id="container-pollution-removed" class="container-stats">
       <div class="pic">
         <img src="images/leaf-w.svg" alt="">
       </div>
       <div id="leaf-text">
-        <span class="bold-text">1 kg of pollution removed</span>
-        is equivalent to bla bla bla.
+        <span class="bold-text">Kilograms of pollution removed by vegetation</span>
+         in your immediate area.
       </div>
     </div>
     <div id="container-pollution-value" class="container-stats">
@@ -525,13 +561,28 @@ time, mark, audio, video {
         <img src="images/coin-w.svg" alt="">
       </div>
       <div id="coin-text">
-        <span class="bold-text">£1 per unit of saved health costs</span>
-        is equivalent to bla bla bla.
+        <span class="bold-text">Avoided costs relating to damaged health</span>
+         as a result of this pollution removal in your wider area.
       </div>
     </div>
+
+    <div id='selectNav'>
+      <span style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
+      <div>
+        <form style="margin-top: 10px; height: 40px" id="pcForm">
+          <div style="display:inline;float:left;width:calc(100% - 40px)">
+            <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
+          </div>
+          <div style="display:inline;float:right">
+              <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div id="postcode-info">
       <div id="postcode-text">
-        <div style="margin-top:20px; margin-bottom:15px;">Pollution removed in this km square</div>
+        <div style="margin-top:20px; margin-bottom:15px;">Pollution removed by vegetation in this km square</div>
       </div>
       <div id="container-detail-leaf">
         <div class="pic-second">
@@ -542,10 +593,14 @@ time, mark, audio, video {
         </div>
       </div>
       <div id="pollution-removed"></div>
+    <!-- </div> -->
+
+
+    <!-- <div id="healthcare-info"> -->
       <div id="savings-text">
         <div style="margin-top:20px; margin-bottom:15px;">The amount saved in healthcare costs in your wider area, <span id="yourNuts3"></span></div>
       </div>
-      <button type="button" id="switch-button">Switch</button>
+
       <div id="container-detail-coin">
         <div class="pic-second">
           <img src="images/coin.svg" alt="">
@@ -557,6 +612,8 @@ time, mark, audio, video {
 
       <div id="pollution-hectare"></div>
     </div>
+
+    <button type="button" id="switch-button" class="btn-primary large"><span id='switchy'>Next</span></button>
 
     <!-- <p>SO2: <span id='SO2'></span></p>
     <p>O3: <span id='O3'></span></p>
@@ -571,11 +628,11 @@ time, mark, audio, video {
     <form class="btn-form-fullwidth" role="radiogroup">
       <div class="form-group-fullwidth" role="radio" tabindex="0">
         <input id="button-1" class="radio-primary-fullwidth" type="radio" name="button" value="value" aria-checked="true" checked>
-        <label class="label-primary-fullwidth" for="button-1">Pollution removed (kg)</label>
+        <label class="label-primary-fullwidth" for="button-1">Pollution removed by vegetation (kg)</label>
       </div>
       <div class="form-group-fullwidth" role="radio" tabindex="2">
         <input id="button-2" class="radio-primary-fullwidth" type="radio" name="button" value="hectare" aria-checked="false">
-        <label class="label-primary-fullwidth" for="button-2">Avoided health costs (£)</label>
+        <label class="label-primary-fullwidth" for="button-2">Avoided health damage costs (£)</label>
       </div>
     </form>
   </div>
