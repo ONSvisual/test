@@ -31,20 +31,20 @@ if(Modernizr.webgl) {
 		});
 
 	//	d3.select('#switch-button').style('display', 'none');
-		d3.select('#switchMe').style('display', 'none');
+//		d3.select('#switchMe').style('display', 'none');
 		//console.log(d3.select('#switch-button'))
 
-		d3.select('#switchMe').on('click', function() {
-			document.getElementById('button-1').checked = false;
-			document.getElementById('button-1').setAttribute("aria-checked", false);
-
-			document.getElementById('button-2').setAttribute("aria-checked", true);
-			document.getElementById('button-2').checked = true;
-
-			d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
-
-			switchMe(switchValue)
-		});
+		// d3.select('#switchMe').on('click', function() {
+		// 	document.getElementById('button-1').checked = false;
+		// 	document.getElementById('button-1').setAttribute("aria-checked", false);
+		//
+		// 	document.getElementById('button-2').setAttribute("aria-checked", true);
+		// 	document.getElementById('button-2').checked = true;
+		//
+		// 	d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
+		//
+		// 	switchMe(switchValue)
+		// });
 
 		// d3.select('#switch-button').on('click', function() {
 		//
@@ -471,21 +471,21 @@ if(Modernizr.webgl) {
 			var text3 = averageLine2.enter().append('text')
 					// .attr('x', x(30))
 					.attr("x", xAverage2(15))
-					.attr('y', yAverage2(heightPollution+25))
+					.attr('y', yAverage2(heightPollution+17))
 					.attr('text-anchor', 'end')
 					.text("UK average")
-					.style('fill', '#BBBDBF')
+					.style('fill', '#666')
 					.style('font-weight', 'bold')
 					.style('font-size', '14px' );
 
 			var text4 = averageLine2.enter().append('text')
 					// .attr('x', x(30))
 					.attr("x", xAverage2(15))
-					.attr('y', yAverage2(heightPollution+25))
+					.attr('y', yAverage2(heightPollution+15))
 					.attr('dy',"1.2em")
 					.attr('text-anchor', 'end')
 					.text("£15.53")
-					.style('fill', '#BBBDBF')
+					.style('fill', '#666')
 					.style('font-weight', 'bold')
 					.style('font-size', '18px' );
 
@@ -897,7 +897,7 @@ if(Modernizr.webgl) {
 
 			setTimeout(function(){
 
-								d3.select('#switchMe').style('display', 'block');
+							//	d3.select('#switchMe').style('display', 'block');
 
 								d3.select('#onload-text').style('display', 'none');
 								d3.selectAll('.container-stats').style('display', 'none');
@@ -1024,7 +1024,7 @@ if(Modernizr.webgl) {
 		function onClick(e) {
 
 										//d3.select('#switch-button').style('display', 'block');
-										d3.select('#switchMe').style('display', 'block');
+										//d3.select('#switchMe').style('display', 'block');
 
 										features = map.queryRenderedFeatures(e.point);
 
@@ -1342,7 +1342,7 @@ if(Modernizr.webgl) {
 		d3.select("#social")
 		.append("div")
 		.attr("id", "share")
-		.style("width","160px")
+		.style("width","100%")
 		.style("height", "30px")
 		.style("float", "left");
 
@@ -1350,6 +1350,7 @@ if(Modernizr.webgl) {
 		.append("p")
 		.style('margin-top',"10px")
 		.style("font-weight","bold")
+		.style("text-align","center")
 		.style("color","#666")
 		.text("share your results")
 
