@@ -849,6 +849,8 @@ if(Modernizr.webgl) {
 
 			function getCodes(myPC)	{
 
+					d3.select("#loadingtext").style("display","block")
+
 					var myURIstring=encodeURI("https://api.postcodes.io/postcodes/"+myPC);
 					$.support.cors = true;
 					$.ajax({
@@ -894,45 +896,79 @@ if(Modernizr.webgl) {
 		  point = map.project([lng,lat]);
 
 			map.jumpTo({center:[lng,lat], zoom:10, duration:durationlength})
+			map.on('render',function(){
 
+				d3.select("#loadingtext").style("display","none")
 
-			setTimeout(function(){
+				d3.select('#onload-text').style('display', 'none');
+				d3.selectAll('.container-stats').style('display', 'none');
+				d3.select('#postcode-info').style('display', 'block');
 
-							//	d3.select('#switchMe').style('display', 'block');
+				point = map.project([lng,lat]);
 
-								d3.select('#onload-text').style('display', 'none');
-								d3.selectAll('.container-stats').style('display', 'none');
-								d3.select('#postcode-info').style('display', 'block');
+				features = map.queryRenderedFeatures(point);
 
-                point = map.project([lng,lat]);
+				if(features[0].layer.id != "pollution") {
+					j=1;
+				} else {
+					j=0
+				}
 
-                features = map.queryRenderedFeatures(point);
+				// console.log(features[0].properties.pollution_total)
+				drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
+				d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+				d3.select('#num-coin').text('£'+features[j+1].properties.value);
+				d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+				// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
+				// d3.select('#O3').text(features[0].properties['pollution_O3']);
+				// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
+				// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
+				// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
+				// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
+				// d3.select('#Total').text(features[0].properties['pollution_total']);
 
-								if(features[0].layer.id != "pollution") {
-									j=1;
-								} else {
-									j=0
-								}
+				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+				map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
-								console.log('undefined',features[1] )
+			})
 
-								// console.log(features[0].properties.pollution_total)
-								drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
-								d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-								d3.select('#num-coin').text('£'+features[j+1].properties.value);
-								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
-								// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
-								// d3.select('#O3').text(features[0].properties['pollution_O3']);
-								// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
-								// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
-								// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
-								// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
-								// d3.select('#Total').text(features[0].properties['pollution_total']);
-
-                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-
-            }, durationlength + 500);
+			// setTimeout(function(){
+			//
+			// 				//	d3.select('#switchMe').style('display', 'block');
+			//
+			// 					d3.select('#onload-text').style('display', 'none');
+			// 					d3.selectAll('.container-stats').style('display', 'none');
+			// 					d3.select('#postcode-info').style('display', 'block');
+			//
+      //           point = map.project([lng,lat]);
+			//
+      //           features = map.queryRenderedFeatures(point);
+			//
+			// 					if(features[0].layer.id != "pollution") {
+			// 						j=1;
+			// 					} else {
+			// 						j=0
+			// 					}
+			//
+			// 					console.log('undefined',features[1] )
+			//
+			// 					// console.log(features[0].properties.pollution_total)
+			// 					drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
+			// 					d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+			// 					d3.select('#num-coin').text('£'+features[j+1].properties.value);
+			// 					d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+			// 					// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
+			// 					// d3.select('#O3').text(features[0].properties['pollution_O3']);
+			// 					// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
+			// 					// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
+			// 					// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
+			// 					// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
+			// 					// d3.select('#Total').text(features[0].properties['pollution_total']);
+			//
+      //           map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+			// 					map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+			//
+      //       }, durationlength + 500);
 
 			// map.on('moveend',function(e){
 			//
