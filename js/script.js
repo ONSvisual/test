@@ -783,7 +783,8 @@ if(Modernizr.webgl) {
 			// setTimeout(function(){map.off('render','pollution',onrender)},500)
 
 			var tilechecker = setInterval(function(){
-				if(map.areTilesLoaded()){
+				features = map.queryRenderedFeatures(point);
+				if(features!=undefined){
 					onrender(),
 					clearInterval(tilechecker)
 				}
