@@ -30,65 +30,6 @@ if(Modernizr.webgl) {
 		    minimumResultsForSearch: 20 // at least 20 results must be displayed
 		});
 
-	//	d3.select('#switch-button').style('display', 'none');
-//		d3.select('#switchMe').style('display', 'none');
-		//console.log(d3.select('#switch-button'))
-
-		// d3.select('#switchMe').on('click', function() {
-		// 	document.getElementById('button-1').checked = false;
-		// 	document.getElementById('button-1').setAttribute("aria-checked", false);
-		//
-		// 	document.getElementById('button-2').setAttribute("aria-checked", true);
-		// 	document.getElementById('button-2').checked = true;
-		//
-		// 	d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
-		//
-		// 	switchMe(switchValue)
-		// });
-
-		// d3.select('#switch-button').on('click', function() {
-		//
-		// 	if(switchValue === 'value') {
-		// 		d3.select('#select-container').style('display', 'none');
-		// 		d3.select('#pollutant-wrapper').style('display', 'none');
-		// 		d3.select('#switchy').html('Avoided');
-		//
-		//
-		// 		// switch over the buttons
-		// 		document.getElementById('button-1').checked = false;
-		// 		document.getElementById('button-1').setAttribute("aria-checked", false);
-		//
-		// 		document.getElementById('button-2').setAttribute("aria-checked", true);
-		//     document.getElementById('button-2').checked = true;
-		//
-		// 		d3.select("#keyunit").text("Kilograms of pollutant removed per hectare");
-		//
-		// 		switchMe(switchValue);
-		// 	}
-		// 	if(switchValue === 'hectare') {
-		// 		d3.select('#select-container').style('display', 'block');
-		// 		d3.select('#pollutant-wrapper').style('display', 'block');
-		// 		d3.select('#switchy').html('Avoided');
-		//
-		//
-		// 		// switch over the buttons
-		// 		document.getElementById('button-2').checked = false;
-		// 		document.getElementById('button-2').setAttribute("aria-checked", false);
-		//
-		// 		document.getElementById('button-1').setAttribute("aria-checked", true);
-		// 		document.getElementById('button-1').checked = true;
-		//
-		// 		d3.select("#keyunit").text("£ per person saved in avoided healthcare costs");
-		//
-		// 		switchMe(switchValue);
-		// 	}
-		// 	//
-		// 	if(switchValue === 'hectare') {switchValue = 'value';}
-		// 	else if(switchValue === 'value'){switchValue = 'hectare';}
-		//
-		// })
-		//
-		// // d3.select("#switch").on("click", switchMe)
 		d3.select('#value').on('click', function() {
 			value = this.id;
 			keyunitvalue=this.id;
@@ -107,7 +48,6 @@ if(Modernizr.webgl) {
 		})
 
 		d3.select('#hectare').on('click', function() {
-			console.log("second map link")
 			value = this.id;
 			keyunitvalue=this.id;
 			switchMe(value);
@@ -139,9 +79,7 @@ if(Modernizr.webgl) {
 					d3.select('#select-container').style('display', 'block')
 					d3.select('#pollutant-wrapper').style('display', 'block')
 				}
-				// createKey(breaksData);
 		  });
-
 
 		//set title of page
 		//Need to test that this shows up in GA
@@ -179,9 +117,7 @@ if(Modernizr.webgl) {
 		heightPollution = heightPollution - marginPollution.top - marginPollution.bottom;
 
 		var y = d3.scaleBand()
-			.rangeRound([heightPollution,0])
-			// .padding(0.3)
-			// .align(0.3);
+			.rangeRound([heightPollution,0]);
 
 		var x = d3.scaleLinear()
 			.rangeRound([widthPollution, 0]);
@@ -224,9 +160,7 @@ if(Modernizr.webgl) {
 		heightHectare = heightHectare - marginHectare.top - marginHectare.bottom;
 
 		var y_hectare = d3.scaleBand()
-			.rangeRound([heightHectare, 0])
-			// .padding(0.3)
-			// .align(0.3);
+			.rangeRound([heightHectare, 0]);
 
 		var x_hectare = d3.scaleLinear()
 			.rangeRound([widthHectare,0]);
@@ -251,10 +185,7 @@ if(Modernizr.webgl) {
 			.attr('width', widthHectare)
 			.attr('y', 0)
 			.attr('height', y_hectare.bandwidth())
-			.attr('fill', "#dadada")
-
-
-
+			.attr('fill', "#dadada");
 
 		// function that inserts data to stacked back
 		// run function on load with total pollution data from a postcode or 0
@@ -274,7 +205,7 @@ if(Modernizr.webgl) {
 				"totalMax": 20059
 			}];
 
-			x.domain([0,total_data[0]["totalMax"]])//.nice();
+			x.domain([0,total_data[0]["totalMax"]]);
       y.domain(total_data.map(function(d) {
             return d.index;
         }));
@@ -301,7 +232,7 @@ if(Modernizr.webgl) {
 		        .attr('y', function(d) {
 		            return y(d.index);
 		        })
-		        .attr('width', function(d) { console.log(d)
+		        .attr('width', function(d) {
 		            return widthPollution - x(d.areaVal)
 		        })
 		        .attr('fill', "#266D4A")
@@ -317,7 +248,7 @@ if(Modernizr.webgl) {
 					"hectareMax": maxHectare
 				}];
 
-				x_hectare.domain([0, maxHectare])//.nice()
+				x_hectare.domain([0, maxHectare]);
 				y_hectare.domain(data_hectare.map(function(d) {
 							return d.index;
 					}));
@@ -345,7 +276,7 @@ if(Modernizr.webgl) {
 							.attr('y', function(d) {
 									return y_hectare(d.index);
 							})
-							.attr('width', function(d) { console.log(d)
+							.attr('width', function(d) {
 									return widthHectare - x_hectare(d.areaVal)
 							})
 							.attr('fill', "#174363");
@@ -371,12 +302,11 @@ if(Modernizr.webgl) {
 
 		var line1 = d3.line()
 					.x( function(d) { return xAverage1(d[0]) })
-					.y( function(d) { console.log(d);return yAverage1(d[1]) });
+					.y( function(d) { return yAverage1(d[1]) });
 
 
 		var averageLine1= svgPollution.selectAll('.line1')
 													.data([averageData1]);
-
 
 		averageLine1
 			.enter()
@@ -410,7 +340,6 @@ if(Modernizr.webgl) {
 				.style('font-weight', 'bold')
 				.style('font-size', '18px' );
 
-
 		// second stacked bar
 		var xAverage2 = d3.scaleLinear()
 				.domain([0,25.83])
@@ -431,7 +360,6 @@ if(Modernizr.webgl) {
 		var averageLine2 = svgHectare.selectAll('.line2')
 													.data([averageData2]);
 
-
 		averageLine2
 			.enter()
 			.append('path')
@@ -440,7 +368,6 @@ if(Modernizr.webgl) {
 				.attr("stroke", "#db8e29")
 				.attr("stroke-width", '3px')
 				.attr('d', line2);
-
 
 		// text average line 2
 		var text3 = averageLine2.enter().append('text')
@@ -488,16 +415,12 @@ if(Modernizr.webgl) {
 					.style('fill', '#666')
 					.style('font-weight', 'bold')
 					.style('font-size', '18px' );
-
 		}
 
 		pymChild.sendHeight();
 
 		// hide info and stacked bar charts onload
 		d3.select('#postcode-info').style('display', 'none');
-
-
-
 
 		//set up basemap
 		map = new mapboxgl.Map({
@@ -510,8 +433,6 @@ if(Modernizr.webgl) {
 		  maxZoom: 20, //
 		  attributionControl: false
 		});
-		//add fullscreen option
-		//map.addControl(new mapboxgl.FullscreenControl());
 
 		// Add zoom and rotation controls to the map.
 		map.addControl(new mapboxgl.NavigationControl());
@@ -521,7 +442,6 @@ if(Modernizr.webgl) {
 
 		// Disable map rotation using touch rotation gesture
 		map.touchZoomRotate.disableRotation();
-
 
 		// Add geolocation controls to the map.
 		map.addControl(new mapboxgl.GeolocateControl({
@@ -535,10 +455,6 @@ if(Modernizr.webgl) {
 			compact: true
 		}));
 
-
-
-		//addFullscreen();
-
 		function defineBreaks(){
 
 			rateById = {};
@@ -547,7 +463,6 @@ if(Modernizr.webgl) {
 			valuedata.forEach(function(d) {rateById[d.AREACD] = +d[variables[0]]; areaById[d.AREACD] = d.AREANM}); //change to brackets
 			breaks = config.ons.breaks[0];
 			createKey(breaks);
-
 		}
 
 		function setupScales() {
@@ -564,7 +479,6 @@ if(Modernizr.webgl) {
 					.domain(breaks.slice(1))
 					.range(colour);
 		}
-
 
 		////////////////////build value map/////////////////////////
 
@@ -591,10 +505,6 @@ if(Modernizr.webgl) {
 						 d.properties.value = rateById[d.properties.AREACD]}
 				  else {d.properties.fill = '#ccc'};
 				});
-
-
-
-
 
 		map.on('load', function() {
 
@@ -630,10 +540,7 @@ if(Modernizr.webgl) {
 					"filter": ["==", "AREACD", ""]
 				}, 'place_suburb');
 
-
-
 			zoomThreshold = 11;
-
 
 			// Add Mapillary sequence layer.
 			// https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
@@ -699,16 +606,10 @@ if(Modernizr.webgl) {
                 },
                 "filter": ["==", "GID", ""]
             }, 'place_suburb');
-
-
-
-
 		});
 
 		map.on('click', 'pollution', onClick);
 		// map.on('click', 'area', onClick);
-
-
 
             //Highlight stroke on mouseover (and show area information)
             map.on("mousemove", "pollution", onMove);
@@ -717,29 +618,19 @@ if(Modernizr.webgl) {
             map.on("mouseleave", "pollution", onLeave);
 						pymChild.sendHeight();
 
-
 		$("#pcText").click(function() {
 			$("#pcText").val('')
 		})
 
 		$("#submitPost").click(function( event ) {
-						//d3.select('#switch-button').style('display', 'block');
-
 
 						event.preventDefault();
 						event.stopPropagation();
 
-						// d3.select('#onload-text').style('display', 'none');
-						// d3.selectAll('.container-stats').style('display', 'none');
-						// d3.select('#postcode-info').style('display', 'block');
-
 						myValue=$("#pcText").val();
-
-						// d3.select('#postcode').text(myValue);
 
 						getCodes(myValue);
 						pymChild.sendHeight();
-
 		});
 
 		// update the map when selecting dropdown
@@ -748,7 +639,6 @@ if(Modernizr.webgl) {
 			pollutant = $('#pollutant-select').val();
 			updateLayers(pollutant)
 		})
-
 
 		function updateLayers(pollVal) {
 			//set up style object
@@ -824,10 +714,8 @@ if(Modernizr.webgl) {
 			map.setPaintProperty('pollution', 'fill-color', styleObject);
 		};
 
-
 			//Highlight stroke on mouseover (and show area information)
 			map.on("mousemove", "OAbounds", onMove);
-
 
 			//Work out zoom level and update
 			map.on("moveend", function (e) {
@@ -859,8 +747,6 @@ if(Modernizr.webgl) {
 						dataType: "jsonp",
 						url: myURIstring,
 						error: function (xhr, ajaxOptions, thrownError) {
-								//$("#pcError").text("couldn't process this request").show();
-
 							},
 						success: function(data1){
 							if(data1.status == 200 ){
@@ -869,10 +755,7 @@ if(Modernizr.webgl) {
 								lng = data1.result.longitude;
 
 								success(lat,lng)
-								//$("#successMessage").text("The postcode " + myPC + " is situated in " + areaName + " which has an area code of " + area).show();
 							} else {
-			          //$("#successMessage").hide();
-								console.log($("#pcText"))
 								$("#pcText").val("Not a valid postcode I'm afraid");
 							}
 						}
@@ -914,156 +797,31 @@ if(Modernizr.webgl) {
 					j=0
 				}
 
-				// console.log(features[0].properties.pollution_total)
+
 				drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 				d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
 				d3.select('#num-coin').text('£'+features[j+1].properties.value);
 				d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
-				// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
-				// d3.select('#O3').text(features[0].properties['pollution_O3']);
-				// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
-				// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
-				// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
-				// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
-				// d3.select('#Total').text(features[0].properties['pollution_total']);
+
 
 				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 				map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
 			})
 
-			// setTimeout(function(){
-			//
-			// 				//	d3.select('#switchMe').style('display', 'block');
-			//
-			// 					d3.select('#onload-text').style('display', 'none');
-			// 					d3.selectAll('.container-stats').style('display', 'none');
-			// 					d3.select('#postcode-info').style('display', 'block');
-			//
-      //           point = map.project([lng,lat]);
-			//
-      //           features = map.queryRenderedFeatures(point);
-			//
-			// 					if(features[0].layer.id != "pollution") {
-			// 						j=1;
-			// 					} else {
-			// 						j=0
-			// 					}
-			//
-			// 					console.log('undefined',features[1] )
-			//
-			// 					// console.log(features[0].properties.pollution_total)
-			// 					drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
-			// 					d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-			// 					d3.select('#num-coin').text('£'+features[j+1].properties.value);
-			// 					d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
-			// 					// d3.select('#SO2').text(features[0].properties['pollution_SO2']);
-			// 					// d3.select('#O3').text(features[0].properties['pollution_O3']);
-			// 					// d3.select('#NO2').text(features[0].properties['pollution_NO2']);
-			// 					// d3.select('#NH3').text(features[0].properties['pollution_NH3']);
-			// 					// d3.select('#PM10').text(features[0].properties['pollution_PM10']);
-			// 					// d3.select('#PM25').text(features[0].properties['pollution_PM25']);
-			// 					// d3.select('#Total').text(features[0].properties['pollution_total']);
-			//
-      //           map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-			// 					map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-			//
-      //       }, durationlength + 500);
-
-			// map.on('moveend',function(e){
-			//
-			// 			//then check what features are underneath
-			// 			var features = map.queryRenderedFeatures(point);
-			//
-			// 			console.log(features)
-			// 			console.log(features[0].properties['pollution_SO2'])
-			// 			d3.select('#SO2').text(features[0].properties['pollution_SO2'])
-			// 			d3.select('#O3').text(features[0].properties['pollution_O3'])
-			// 			d3.select('#NO2').text(features[0].properties['pollution_NO2'])
-			// 			d3.select('#NH3').text(features[0].properties['pollution_NH3'])
-			// 			d3.select('#PM10').text(features[0].properties['pollution_PM10'])
-			// 			d3.select('#PM25').text(features[0].properties['pollution_PM25'])
-			// 			d3.select('#Total').text(features[0].properties['pollution_total'])
-			//
-			//
-			// 			//then select area
-			// 			//disableMouseEvents();
-			//
-			// 			map.setFilter("OAboundshover", ["==", "GID", features[0].properties['GID']]);
-			//
-			//
-			// });
-
-
 		};
 
 
 		function onMove(e) {
 			map.getCanvasContainer().style.cursor = 'pointer';
-// 				newAREACD = e.features[0].properties['GID'];
-//
-// 				if(newAREACD != oldAREACD) {
-// 					oldAREACD = e.features[0].properties['GID'];
-// 					map.setFilter("OAboundshover", ["==", "GID", e.features[0].properties['GID']]);
-//
-// 				//	console.log(e.features[0].properties);
-//
-// 					totalpop = +e.features[0].properties["ethnicityOA_Asian / Asian British: Bangladeshi"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Chinese"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Indian"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Other Asian"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Pakistani"] +
-// 							+e.features[0].properties["ethnicityOA_White"] +
-// 							+e.features[0].properties["ethnicityOA_Black / African / Caribbean / Black British"] +
-// 							+e.features[0].properties["ethnicityOA_Mixed / Multiple ethnic group"] +
-// 							+e.features[0].properties["ethnicityOA_Other Ethnic Group"];
-//
-// 					asian = displayformat(((+e.features[0].properties["ethnicityOA_Asian / Asian British: Bangladeshi"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Chinese"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Indian"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Other Asian"] +
-// 							+e.features[0].properties["ethnicityOA_Asian / Asian British: Pakistani"])/totalpop)*100);
-//
-// 					white = displayformat((+e.features[0].properties["ethnicityOA_White"]/totalpop)*100);
-//
-// 					black = displayformat((+e.features[0].properties["ethnicityOA_Black / African / Caribbean / Black British"]/totalpop)*100);
-// 					mixed = displayformat((+e.features[0].properties["ethnicityOA_Mixed / Multiple ethnic group"]/totalpop)*100);
-// 					other = displayformat((+e.features[0].properties["ethnicityOA_Other Ethnic Group"]/totalpop)*100);
-//
-//
-// 					percentages = [white,black,asian,mixed,other];
-//
-// 					d3.selectAll(".percentlabel").remove();
-//
-// 					legend.insert("label",".legendBlocks").attr('class','percentlabel').text(function(d,i) {
-// 						return percentages[i] + "%";
-// 					});
-//
-// 					percentages.forEach(function(d,i) {
-// 						d3.select("#legendRect" + i).transition().duration(300).style("width", (percentages[i]/3.3333333) + "px");
-// 					});
-//
-//
-//
-//
-//
-// //					selectArea(e.features[0].properties.oa11cd);
-// //					setAxisVal(e.features[0].properties.oa11cd);
-// 				}
 		};
 
 
 		function onLeave() {
-			//	map.setFilter("state-fills-hover", ["==", "AREACD", ""]);
-			//	oldAREACD = "";
-			//	$("#areaselect").val("").trigger("chosen:updated");
 				hideaxisVal();
 		};
 
 		function onClick(e) {
-
-										//d3.select('#switch-button').style('display', 'block');
-										//d3.select('#switchMe').style('display', 'block');
 
 										features = map.queryRenderedFeatures(e.point);
 
@@ -1085,7 +843,6 @@ if(Modernizr.webgl) {
 											map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 										}
 
-										console.log(features[j].properties.pollution_total, features[j+1].properties.value)
 										drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 										if(value==='value') {
 											setAxisVal(features[j].properties[pollutant]);
@@ -1098,13 +855,10 @@ if(Modernizr.webgl) {
 										d3.select('#postcode-info').style('display', 'block');
 
 		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-										// map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
 										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-										// d3.select('#num-coin').text('£'+features[j+1].properties.value);
-										// d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
-
 		        };
+
 		function disableMouseEvents() {
 				map.off("mousemove", "area", onMove);
 				map.off("mouseleave", "area", onLeave);
@@ -1112,7 +866,6 @@ if(Modernizr.webgl) {
 
 		function enableMouseEvents() {
 				map.on("mousemove", "area", onMove);
-				//map.on("click", "area", onClick);
 				map.on("mouseleave", "area", onLeave);
 		}
 
@@ -1133,11 +886,8 @@ if(Modernizr.webgl) {
 		}
 
 		function resetZoom() {
-
 			map.fitBounds([[bounds[0], bounds[1]], [bounds[2], bounds[3]]]);
-
 		}
-
 
 		function setAxisVal(code) {
 			d3.select("#currLine")
@@ -1147,14 +897,12 @@ if(Modernizr.webgl) {
 				.attr("x1", function(){if(!isNaN(code)) {return x_key(code)} else{return x_key(0)}})
 				.attr("x2", function(){if(!isNaN(code)) {return x_key(code)} else{return x_key(0)}});
 
-
 			d3.select("#currVal")
 				.text(function(){if(!isNaN(code))  {return displayformat(code)} else {return "Data unavailable"}})
 				.style("opacity",1)
 				.transition()
 				.duration(400)
 				.attr("x", function(){if(!isNaN(code)) {return x_key(code)} else{return x(0)}});
-
 		}
 
 		function hideaxisVal() {
@@ -1188,8 +936,6 @@ if(Modernizr.webgl) {
 				colour=colourblue
 			}
 
-			console.log(breaks)
-
 			var color = d3.scaleThreshold()
 			   .domain(breaks)
 			   .range(colour);
@@ -1203,11 +949,9 @@ if(Modernizr.webgl) {
 			var xAxis = d3.axisBottom(x_key)
 				.tickSize(15)
 				.tickValues([breaks[0], breaks[5]])
-				// .tickFormat(legendformat);
 
 			var g2 = svgkey.append("g").attr("id","horiz")
 				.attr("transform", "translate(15,30)");
-
 
 			keyhor = d3.select("#horiz");
 
@@ -1246,8 +990,6 @@ if(Modernizr.webgl) {
 				.attr("y", -15)
 				.attr("fill","#000")
 				.text("");
-
-
 
 			keyhor.selectAll("rect")
 				.data(color.range().map(function(d, i) {
@@ -1294,8 +1036,6 @@ if(Modernizr.webgl) {
 				d3.select("#keydiv").append("p").attr("id","keyunit").style("margin-top","-10px").style("margin-left","10px").text(dvc.varunit2);
 			}
 
-
-
 	} // Ends create key
 	// run createKey with breaks
 	createKey(breaksData);
@@ -1319,8 +1059,6 @@ if(Modernizr.webgl) {
 	}
 
 	function switchMe(valueButton) {
-
-		 console.log(valueButton)
 
 		if(valueButton === 'hectare') {
 			// value = 'value';
