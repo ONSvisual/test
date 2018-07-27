@@ -298,7 +298,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData1 = [[5618.68, 0], [5618.68, 120]];
+		var averageData1 = [[5618.68, 0], [5618.68, 80]];
 
 		var line1 = d3.line()
 					.x( function(d) { return xAverage1(d[0]) })
@@ -321,7 +321,7 @@ if(Modernizr.webgl) {
 		var text1 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
-				.attr('y', yAverage1(heightPollution+17))
+				.attr('y', yAverage1(heightPollution+15))
 				.attr('text-anchor', 'start')
 				.text("UK average")
 				.style('fill', '#666')
@@ -333,7 +333,7 @@ if(Modernizr.webgl) {
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+15))
-				.attr('dy',"1.2em")
+				.attr('dy',"1.1em")
 				.attr('text-anchor', 'start')
 				.text("5,619 kg")
 				.style('fill', '#666')
@@ -350,7 +350,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData2 = [[15.53, 0], [15.53, 120]];
+		var averageData2 = [[15.53, 0], [15.53, 80]];
 
 		var line2 = d3.line()
 					.x( function(d) { return xAverage2(d[0]) })
@@ -737,8 +737,6 @@ if(Modernizr.webgl) {
 
 			function getCodes(myPC)	{
 
-					d3.select("#loadingtext").style("display","block")
-
 					var myURIstring=encodeURI("https://api.postcodes.io/postcodes/"+myPC);
 					$.support.cors = true;
 					$.ajax({
@@ -756,7 +754,7 @@ if(Modernizr.webgl) {
 
 								success(lat,lng)
 							} else {
-								$("#pcText").val("Not a valid postcode I'm afraid");
+								$("#pcText").val("Sorry, invalid postcode.");
 							}
 						}
 
@@ -779,8 +777,6 @@ if(Modernizr.webgl) {
 		  point = map.project([lng,lat]);
 
 			map.jumpTo({center:[lng,lat], zoom:10, duration:durationlength})
-			// map.on('render','pollution',onrender)
-			// setTimeout(function(){map.off('render','pollution',onrender)},500)
 
 			var tilechecker = setInterval(function(){
 				features = map.queryRenderedFeatures(point);
@@ -813,16 +809,16 @@ if(Modernizr.webgl) {
 					j=0
 				}
 
+                drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
+								d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+								d3.select('#num-coin').text('£'+features[j+1].properties.value);
+								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 
-				drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
-				d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-				d3.select('#num-coin').text('£'+features[j+1].properties.value);
-				d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+                    
+		};
 
-
-				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-				map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-		}
 
 
 		function onMove(e) {
@@ -1137,9 +1133,9 @@ if(Modernizr.webgl) {
 		.append("p")
 		.style('margin-top',"10px")
 		.style("font-weight","bold")
-		.style("text-align","center")
+		.style("text-align","left")
 		.style("color","#666")
-		.text("share your results")
+		.text("Share your results")
 
 
 	var ParentURL = (window.location != window.parent.location)
