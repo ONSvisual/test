@@ -771,7 +771,7 @@ if(Modernizr.webgl) {
 			if($("body").width() < 600) {
 					durationlength = 500;
 			} else {
-					durationlength = 4000;
+					durationlength = 500;
 			}
 		//	durationlength
 
@@ -817,7 +817,7 @@ if(Modernizr.webgl) {
 
                 map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-                    
+
 		};
 
 
