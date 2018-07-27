@@ -643,7 +643,7 @@ if(Modernizr.webgl) {
 				"source": {
 					"type": "vector",
 					"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-					 // "tiles": ["http://localhost:8001/tiles2/{z}/{x}/{y}.pbf"],
+					//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -679,8 +679,9 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-										 // "tiles": ["http://localhost:8001/tiles2/{z}/{x}/{y}.pbf"],
+										tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+										//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										 //"tiles": ["http://localhost:8001/tiles2/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
