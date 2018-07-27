@@ -298,7 +298,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData1 = [[5618.68, 0], [5618.68, 120]];
+		var averageData1 = [[5618.68, 0], [5618.68, 80]];
 
 		var line1 = d3.line()
 					.x( function(d) { return xAverage1(d[0]) })
@@ -350,7 +350,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData2 = [[15.53, 0], [15.53, 120]];
+		var averageData2 = [[15.53, 0], [15.53, 80]];
 
 		var line2 = d3.line()
 					.x( function(d) { return xAverage2(d[0]) })
