@@ -1046,6 +1046,19 @@ if(Modernizr.webgl) {
 											j=0
 										}
 
+										if(typeof features[j+1].properties.value === "undefined") {
+											features[j+1].properties.value = 0;
+											d3.select('#num-coin').text('no value');
+											d3.select('#yourNuts3').text('no value');
+										}
+										else {
+											features[j+1].properties.value = features[j+1].properties.value;
+											d3.select('#num-coin').text('£'+features[j+1].properties.value);
+											d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+											map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+										}
+
+
 										drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 										if(value==='value') {
 											setAxisVal(features[j].properties[pollutant]);
@@ -1057,13 +1070,12 @@ if(Modernizr.webgl) {
 										d3.selectAll('.container-stats').style('display', 'none');
 										d3.select('#postcode-info').style('display', 'block');
 
-
 		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-										map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+										// map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 
 										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-										d3.select('#num-coin').text('£'+features[j+1].properties.value);
-										d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+										// d3.select('#num-coin').text('£'+features[j+1].properties.value);
+										// d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 
 		        };
 		function disableMouseEvents() {
