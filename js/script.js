@@ -298,7 +298,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData1 = [[5618.68, 0], [5618.68, 120]];
+		var averageData1 = [[5618.68, 0], [5618.68, 80]];
 
 		var line1 = d3.line()
 					.x( function(d) { return xAverage1(d[0]) })
@@ -321,7 +321,7 @@ if(Modernizr.webgl) {
 		var text1 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
-				.attr('y', yAverage1(heightPollution+17))
+				.attr('y', yAverage1(heightPollution+15))
 				.attr('text-anchor', 'start')
 				.text("UK average")
 				.style('fill', '#666')
@@ -333,7 +333,7 @@ if(Modernizr.webgl) {
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+15))
-				.attr('dy',"1.2em")
+				.attr('dy',"1.1em")
 				.attr('text-anchor', 'start')
 				.text("5,619 kg")
 				.style('fill', '#666')
@@ -350,7 +350,7 @@ if(Modernizr.webgl) {
 				.range([0, heightPollution])
 
 
-		var averageData2 = [[15.53, 0], [15.53, 120]];
+		var averageData2 = [[15.53, 0], [15.53, 80]];
 
 		var line2 = d3.line()
 					.x( function(d) { return xAverage2(d[0]) })
@@ -755,7 +755,7 @@ if(Modernizr.webgl) {
 
 								success(lat,lng)
 							} else {
-								$("#pcText").val("Not a valid postcode I'm afraid");
+								$("#pcText").val("Sorry, invalid postcode.");
 							}
 						}
 
@@ -1119,9 +1119,9 @@ if(Modernizr.webgl) {
 		.append("p")
 		.style('margin-top',"10px")
 		.style("font-weight","bold")
-		.style("text-align","center")
+		.style("text-align","left")
 		.style("color","#666")
-		.text("share your results")
+		.text("Share your results")
 
 
 	var ParentURL = (window.location != window.parent.location)
