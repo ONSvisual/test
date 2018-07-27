@@ -904,11 +904,7 @@ if(Modernizr.webgl) {
 			});
 
 			setTimeout(function(){
-                // var features = map.queryRenderedFeatures(queryBox);
-                //
-                // var features = map.queryRenderedFeatures(queryBox);
-                // console.log(features)
-                // map.setFilter("onekmhover", ["==", "GID", features[0].properties.GID]);
+
 								d3.select('#switchMe').style('display', 'block');
 
 								d3.select('#onload-text').style('display', 'none');
