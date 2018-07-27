@@ -89,6 +89,43 @@ if(Modernizr.webgl) {
 		// })
 		//
 		// // d3.select("#switch").on("click", switchMe)
+		d3.select('#value').on('click', function() {
+			value = this.id;
+			keyunitvalue=this.id;
+			switchMe(value);
+
+			d3.select('#select-container').style('display', 'block');
+			d3.select('#pollutant-wrapper').style('display', 'block');
+
+			document.getElementById('button-1').checked = true;
+			document.getElementById('button-1').setAttribute("aria-checked", true);
+
+			document.getElementById('button-2').setAttribute("aria-checked", false);
+			document.getElementById('button-2').checked = false;
+
+
+		})
+
+		d3.select('#hectare').on('click', function() {
+			console.log("second map link")
+			value = this.id;
+			keyunitvalue=this.id;
+			switchMe(value);
+
+			d3.select('#select-container').style('display', 'none');
+			d3.select('#pollutant-wrapper').style('display', 'none');
+
+			d3.select('#select-container').style('display', 'block');
+			d3.select('#pollutant-wrapper').style('display', 'block');
+
+			document.getElementById('button-1').checked = false;
+			document.getElementById('button-1').setAttribute("aria-checked", false);
+
+			document.getElementById('button-2').setAttribute("aria-checked", true);
+			document.getElementById('button-2').checked = true;
+		})
+
+
 		d3.selectAll("input[name='button']")
 		  .on('click', function() {
 				value = this.value;
@@ -606,7 +643,7 @@ if(Modernizr.webgl) {
 				"source": {
 					"type": "vector",
 					"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-					//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					 // "tiles": ["http://localhost:8001/tiles2/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -850,21 +887,13 @@ if(Modernizr.webgl) {
 			if($("body").width() < 600) {
 					durationlength = 500;
 			} else {
-					durationlength = 4000;
+					durationlength = 500;
 			}
 		//	durationlength
 
 		  point = map.project([lng,lat]);
 
-			map.flyTo({center:[lng,lat], zoom:10, duration:durationlength})
-
-			map.on('flystart', function(){
-				flying=true;
-			});
-
-			map.on('flyend', function(){
-				flying=false;
-			});
+			map.setView({center:[lng,lat], zoom:10})
 
 			setTimeout(function(){
                 // var features = map.queryRenderedFeatures(queryBox);

@@ -132,6 +132,12 @@ time, mark, audio, video {
     color: white;
   }
 
+  @media screen and (max-width:600px) {
+      .container-stats {
+        margin-right: 00px;
+      }
+    }
+    
   .pic {
     width: 20%;
     display: inline-block;
@@ -322,6 +328,51 @@ time, mark, audio, video {
     font-weight: bold;
     color: #266D4A
   }
+
+  #value:link {
+    color: #266D4A;
+  }
+
+  #value:visited {
+    color: #266D4A;
+  }
+
+  #value:active {
+    color: #266D4A;
+  }
+
+  #value:active {
+    color: #266D4A;
+  }
+
+  #value:hover {
+    color: #16412c;
+  }
+
+
+
+
+  #hectare:link{
+    color: #0075A3
+  }
+
+  #hectare:visited{
+    color: #0075A3
+  }
+
+  #hectare:active{
+    color: #0075A3
+  }
+
+  #hectare:active{
+    color: #0075A3
+  }
+
+  #hectare:hover{
+    color: #004661
+  }
+
+
 
   .pic-second {
     width: 20%;
@@ -645,7 +696,7 @@ time, mark, audio, video {
 
     <div id="postcode-info">
       <div id="postcode-text">
-        <div style="margin-top:20px; margin-bottom:15px;">Total pollution removed by vegetation in this km square</div>
+        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="value">Total pollution removed by vegetation</a> in this km square</div>
       </div>
       <div id="container-detail-leaf">
         <div class="pic-second">
@@ -661,7 +712,7 @@ time, mark, audio, video {
 
     <!-- <div id="healthcare-info"> -->
       <div id="savings-text">
-        <div style="margin-top:20px; margin-bottom:15px;">The amount saved in healthcare costs in your wider area, <span id="yourNuts3"></span></div>
+        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="hectare">The amount saved in healthcare costs</a> in your wider area, <span id="yourNuts3"></span></div>
       </div>
 
       <div id="container-detail-coin">
