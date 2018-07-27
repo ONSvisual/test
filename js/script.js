@@ -605,8 +605,8 @@ if(Modernizr.webgl) {
 				'type': 'fill',
 				"source": {
 					"type": "vector",
-					//"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-					"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+					"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+					//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
 					"minzoom": 4,
 					"maxzoom": 14
 				},
@@ -642,8 +642,8 @@ if(Modernizr.webgl) {
                 "type": "line",
                 "source": {
                     "type": "vector",
-										//"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-										"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
+										//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -1028,6 +1028,9 @@ if(Modernizr.webgl) {
 										d3.select('#num-coin').text('£'+features[j+1].properties.value);
 										d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
 
+										d3.select("#twitterShare").attr("href","https://twitter.com/intent/tweet?text=Explore gagagg " + ParentURL)
+										console.log("hello")
+
 		        };
 		function disableMouseEvents() {
 				map.off("mousemove", "area", onMove);
@@ -1314,7 +1317,7 @@ if(Modernizr.webgl) {
 		.text("share your results")
 
 
-	var ParentURL = (window.location != window.parent.location)
+	ParentURL = (window.location != window.parent.location)
 	            ? document.referrer
 	            : document.location;
 
@@ -1340,7 +1343,7 @@ if(Modernizr.webgl) {
 
 	d3.select("#share").append("a")
 		.attr("id","twitterShare")
-		.attr("href","https://twitter.com/intent/tweet?text=" + ParentURL)
+		.attr("href","https://twitter.com/intent/tweet?text=Explore how much pollution is removed by vegetation in your area " + ParentURL)
 		.attr("target","_blank")
 		.style("display","block")
 		.style("height","25px")
