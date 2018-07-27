@@ -921,8 +921,10 @@ if(Modernizr.webgl) {
 									j=0
 								}
 
+								console.log('undefined',features[1] )
+
 								// console.log(features[0].properties.pollution_total)
-								drawStacked(features[j].properties.pollution_total, features[1].properties.value);
+								drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 								d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
 								d3.select('#num-coin').text('£'+features[j+1].properties.value);
 								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
@@ -1054,7 +1056,7 @@ if(Modernizr.webgl) {
 											map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
 										}
 
-
+										console.log(features[j].properties.pollution_total, features[j+1].properties.value)
 										drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
 										if(value==='value') {
 											setAxisVal(features[j].properties[pollutant]);
