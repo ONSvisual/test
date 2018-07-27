@@ -680,7 +680,7 @@ if(Modernizr.webgl) {
                 "source": {
                     "type": "vector",
 										"tiles": ["https://cdn.ons.gov.uk/maptiles/t2/{z}/{x}/{y}.pbf"],
-										//"tiles": ["http://localhost/pollution/pollutionmap/tiles/{z}/{x}/{y}.pbf"],
+										 // "tiles": ["http://localhost:8001/tiles2/{z}/{x}/{y}.pbf"],
                     "minzoom": 1,
                     "maxzoom": 14
                 },
@@ -887,13 +887,21 @@ if(Modernizr.webgl) {
 			if($("body").width() < 600) {
 					durationlength = 500;
 			} else {
-					durationlength = 500;
+					durationlength = 4000;
 			}
 		//	durationlength
 
 		  point = map.project([lng,lat]);
 
-			map.jumpTo({center:[lng,lat], zoom:10})
+			map.flyTo({center:[lng,lat], zoom:10, duration:durationlength})
+
+			map.on('flystart', function(){
+				flying=true;
+			});
+
+			map.on('flyend', function(){
+				flying=false;
+			});
 
 			setTimeout(function(){
                 // var features = map.queryRenderedFeatures(queryBox);
@@ -1068,9 +1076,6 @@ if(Modernizr.webgl) {
 										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
 										// d3.select('#num-coin').text('£'+features[j+1].properties.value);
 										// d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
-
-										d3.select("#twitterShare").attr("href","https://twitter.com/intent/tweet?text=Explore gagagg " + ParentURL)
-										console.log("hello")
 
 		        };
 		function disableMouseEvents() {
@@ -1358,7 +1363,7 @@ if(Modernizr.webgl) {
 		.text("share your results")
 
 
-	ParentURL = (window.location != window.parent.location)
+	var ParentURL = (window.location != window.parent.location)
 	            ? document.referrer
 	            : document.location;
 
@@ -1384,7 +1389,7 @@ if(Modernizr.webgl) {
 
 	d3.select("#share").append("a")
 		.attr("id","twitterShare")
-		.attr("href","https://twitter.com/intent/tweet?text=Explore how much pollution is removed by vegetation in your area " + ParentURL)
+		.attr("href","https://twitter.com/intent/tweet?text=" + ParentURL)
 		.attr("target","_blank")
 		.style("display","block")
 		.style("height","25px")
