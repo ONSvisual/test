@@ -73,7 +73,9 @@ time, mark, audio, video {
 
   #container-pollution-removed {
     background-color: #266D4A;
-    height: 88px;
+    display: flex;
+	  height:88px;
+    align-items: center;
     margin-top:7px !important;
 
   }
@@ -81,52 +83,63 @@ time, mark, audio, video {
   #container-pollution-value {
     background-color: #174363;
     /* clear: left; */
-    height: 108px;
+	  height:108px;
+        display: flex;
+    align-items: center;
   }
 
   @media screen and (min-width:600px) and (max-width:865px) {
     #container-pollution-value {
-      height:130px;
+          display: flex;
+    align-items: center;
     }
   }
 
   @media screen and (min-width:600px) and (max-width:826px) {
     #container-pollution-removed {
-      height:108px;
+          display: flex;
+	  height:88px;
+    align-items: center;
     }
   }
 
   @media screen and (min-width:600px) and (max-width:738px) {
     #container-pollution-value {
-      height:152px;
+          display: flex;
+	  height:108px;
+    align-items: center;
     }
 
     #container-pollution-removed {
-      height:130px;
+         display: flex;
+    align-items: center;
     }
   }
 
   @media screen and (min-width:600px) and (max-width:668px) {
     #container-pollution-removed {
-      height:152px;
+          display: flex;
+    align-items: center;
     }
   }
 
 
   @media screen and (min-width:600px) and (max-width:634px) {
     #container-pollution-value {
-      height:175px;
+          display: flex;
+    align-items: center;
     }
   }
 
   @media screen and (min-width:600px) and (max-width:620px) {
     #container-pollution-value {
-      height:200px;
+         display: flex;
+    align-items: center;
     }
   }
 
   .container-stats {
-    padding-top: 15px;
+    padding: 15px 10px;
     margin-top: 20px;
     margin-right: 20px;
     color: white;
@@ -470,6 +483,11 @@ time, mark, audio, video {
       height: 85px;
     }
 
+    #pollution-removed, #pollution-hectare {
+      margin-right: 0px;
+    }
+
+
 		#keydiv {
 
       position: absolute;
@@ -692,7 +710,7 @@ time, mark, audio, video {
       </div>
       <div id="coin-text">
         <span class="bold-text">Avoided costs relating to damaged health</span>
-         as a result of this pollution removal in your wider area.
+         per person as a result of this pollution removal in your wider area.
       </div>
     </div>
 
@@ -715,7 +733,7 @@ time, mark, audio, video {
 
     <!-- <div id="healthcare-info"> -->
       <div id="savings-text">
-        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="hectare">The amount saved in healthcare costs</a> in your wider area, <span id="yourNuts3"></span></div>
+        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="hectare">The amount saved in healthcare costs</a> per person in your wider area, <span id="yourNuts3"></span></div>
       </div>
 
       <div id="container-detail-coin">
