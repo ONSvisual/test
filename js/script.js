@@ -1118,9 +1118,9 @@ if(Modernizr.webgl) {
 		.append("p")
 		.style('margin-top',"10px")
 		.style("font-weight","bold")
-		.style("text-align","center")
+		.style("text-align","left")
 		.style("color","#666")
-		.text("share your results")
+		.text("Share your results")
 
 
 	var ParentURL = (window.location != window.parent.location)
