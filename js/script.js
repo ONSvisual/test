@@ -779,9 +779,24 @@ if(Modernizr.webgl) {
 		  point = map.project([lng,lat]);
 
 			map.jumpTo({center:[lng,lat], zoom:10, duration:durationlength})
-			map.on('render',function(){
+			// map.on('render','pollution',onrender)
+			// setTimeout(function(){map.off('render','pollution',onrender)},500)
 
+			var tilechecker = setInterval(function(){
+				if(map.areTilesLoaded()){
+					onrender(),
+					clearInterval(tilechecker)
+				}
+			},500)
+
+			tilechecker
+
+
+		};
+
+		function onrender(){
 				d3.select("#loadingtext").style("display","none")
+
 
 				d3.select('#onload-text').style('display', 'none');
 				d3.selectAll('.container-stats').style('display', 'none');
@@ -790,7 +805,7 @@ if(Modernizr.webgl) {
 				point = map.project([lng,lat]);
 
 				features = map.queryRenderedFeatures(point);
-
+				console.log(features)
 				if(features[0].layer.id != "pollution") {
 					j=1;
 				} else {
@@ -806,10 +821,7 @@ if(Modernizr.webgl) {
 
 				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 				map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-
-			})
-
-		};
+		}
 
 
 		function onMove(e) {
