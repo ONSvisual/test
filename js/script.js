@@ -737,8 +737,6 @@ if(Modernizr.webgl) {
 
 			function getCodes(myPC)	{
 
-					d3.select("#loadingtext").style("display","block")
-
 					var myURIstring=encodeURI("https://api.postcodes.io/postcodes/"+myPC);
 					$.support.cors = true;
 					$.ajax({
@@ -779,36 +777,32 @@ if(Modernizr.webgl) {
 		  point = map.project([lng,lat]);
 
 			map.jumpTo({center:[lng,lat], zoom:10, duration:durationlength})
-			map.on('render',function(){
-
-				d3.select("#loadingtext").style("display","none")
-
-				d3.select('#onload-text').style('display', 'none');
-				d3.selectAll('.container-stats').style('display', 'none');
-				d3.select('#postcode-info').style('display', 'block');
-
-				point = map.project([lng,lat]);
-
-				features = map.queryRenderedFeatures(point);
-
-				if(features[0].layer.id != "pollution") {
-					j=1;
-				} else {
-					j=0
-				}
 
 
-				drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
-				d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
-				d3.select('#num-coin').text('£'+features[j+1].properties.value);
-				d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+			setTimeout(function(){
 
+								d3.select('#onload-text').style('display', 'none');
+								d3.selectAll('.container-stats').style('display', 'none');
+								d3.select('#postcode-info').style('display', 'block');
 
-				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
-				map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+                point = map.project([lng,lat]);
 
-			})
+                features = map.queryRenderedFeatures(point);
 
+								if(features[0].layer.id != "pollution") {
+									j=1;
+								} else {
+									j=0
+								}
+ 								drawStacked(features[j].properties.pollution_total, features[j+1].properties.value);
+								d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+								d3.select('#num-coin').text('£'+features[j+1].properties.value);
+								d3.select('#yourNuts3').text(features[j+1].properties.AREANM);
+
+                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+
+            }, durationlength + 500);
 		};
 
 
