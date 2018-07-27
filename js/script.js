@@ -893,7 +893,7 @@ if(Modernizr.webgl) {
 
 		  point = map.project([lng,lat]);
 
-			map.setView({center:[lng,lat], zoom:10})
+			map.jumpTo({center:[lng,lat], zoom:10})
 
 			setTimeout(function(){
                 // var features = map.queryRenderedFeatures(queryBox);
