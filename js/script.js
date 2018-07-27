@@ -321,7 +321,7 @@ if(Modernizr.webgl) {
 		var text1 = averageLine1.enter().append('text')
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
-				.attr('y', yAverage1(heightPollution+17))
+				.attr('y', yAverage1(heightPollution+15))
 				.attr('text-anchor', 'start')
 				.text("UK average")
 				.style('fill', '#666')
@@ -333,7 +333,7 @@ if(Modernizr.webgl) {
 				// .attr('x', x(30))
 				.attr("x", xAverage1(6000))
 				.attr('y', yAverage1(heightPollution+15))
-				.attr('dy',"1.2em")
+				.attr('dy',"1.1em")
 				.attr('text-anchor', 'start')
 				.text("5,619 kg")
 				.style('fill', '#666')
@@ -754,7 +754,7 @@ if(Modernizr.webgl) {
 
 								success(lat,lng)
 							} else {
-								$("#pcText").val("Not a valid postcode I'm afraid");
+								$("#pcText").val("Sorry, invalid postcode.");
 							}
 						}
 
