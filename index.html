@@ -44,16 +44,17 @@ time, mark, audio, video {
 }
 
     body {
-		margin:0;
-		padding:0;
 		font-family: 'Open Sans', sans-serif;
 		width:100%;
 /*		max-width:800px;
 */		margin: 0px auto;
-		display:table;
-    font-size: 16px;
+	    font-size: 16px;
 	}
 
+	.row {
+		width:100%;	
+	}
+	
 	#header{
 		height:70px;
 		width:100%
@@ -77,22 +78,64 @@ time, mark, audio, video {
 
   #container-pollution-removed {
     background-color: #266D4A;
-    display: flex;
-	  height:88px;
-    align-items: center;
+	display: table;
+/*    display: flex;
+  height:88px;*/	
+   /* align-items: center;*/
     margin-top:7px !important;
 
   }
 
   #container-pollution-value {
     background-color: #174363;
-    /* clear: left; */
-	  height:108px;
-        display: flex;
-    align-items: center;
+	display: table;
+    /* clear: left;
+	  height:108px; */
+/*        display: flex;
+    align-items: center;*/ 
   }
 
-  @media screen and (min-width:600px) and (max-width:865px) {
+/*@media screen and (min-width:600px) and (max-width:865px) {
+    #container-pollution-value {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:826px) {
+    #container-pollution-removed {
+      height:108px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:738px) {
+    #container-pollution-value {
+      height:152px;
+    }
+
+    #container-pollution-removed {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:668px) {
+    #container-pollution-removed {
+      height:152px;
+    }
+  }
+
+
+  @media screen and (min-width:600px) and (max-width:634px) {
+    #container-pollution-value {
+      height:175px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:620px) {
+    #container-pollution-value {
+      height:200px;
+    }*/
+
+ /* @media screen and (min-width:600px) and (max-width:865px) {
     #container-pollution-value {
           display: flex;
     align-items: center;
@@ -140,10 +183,11 @@ time, mark, audio, video {
          display: flex;
     align-items: center;
     }
-  }
+  }*/
 
   .container-stats {
     padding: 15px 10px;
+	display: table;
     margin-top: 20px;
     margin-right: 20px;
     color: white;
@@ -155,16 +199,20 @@ time, mark, audio, video {
       }
     }
 
-  .pic {
-    width: 20%;
-    display: inline-block;
+ .pic {
+    height: 45px;
+   /* display: inline-block;
     float: left;
     padding-left: 10px;
-    box-sizing: border-box;
+    box-sizing: border-box;*/
   }
 
+  .icons {
+	  max-width:50px;
+	  float:right;
+  }
 
-  #leaf-text {
+/*  #leaf-text {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
@@ -173,8 +221,8 @@ time, mark, audio, video {
     width: 80%;
     float: left;
   }
-
-  #coin-text {
+*/
+ /* #coin-text {
     width: 80%;
     float: left;
     padding-left: 10px;
@@ -182,7 +230,7 @@ time, mark, audio, video {
     padding-bottom: 10px;
     box-sizing: border-box;
     font-weight: lighter;
-  }
+  }*/
 
   .bold-text {
     font-weight: 700;
@@ -225,7 +273,7 @@ time, mark, audio, video {
 
   /* Button group styles */
 
-  /* #primary {
+   #primary {
     margin-bottom: 32px;
   }
 
@@ -252,7 +300,7 @@ time, mark, audio, video {
 
   .form-group:last-child {
     border-right: solid 1px #A6A8AB;
-  } */
+  } 
 
   /* Full width */
 
@@ -269,7 +317,7 @@ time, mark, audio, video {
   }
 
   .form-group-fullwidth {
-    display: -webkit-box;
+	display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     cursor: pointer;
@@ -277,12 +325,6 @@ time, mark, audio, video {
     box-sizing: border-box;
     text-align: center;
     width: 100%;
-  }
-
-  @media screen and (min-width:599px) and (max-width:938px) {
-    .form-group-fullwidth {
-      height:66px;
-    }
   }
 
   .form-group-fullwidth:last-child {
@@ -392,12 +434,13 @@ time, mark, audio, video {
 
 
   .pic-second {
-    width: 20%;
+    height:40px;
+	width:40px;
     float: left;
   }
 
   #info-leaf {
-    width: 80%;
+	padding-left:10px;
     float: left;
     font-weight: bold;
     color: #266D4A;
@@ -405,7 +448,7 @@ time, mark, audio, video {
   }
 
   #info-coin {
-    width: 80%;
+	padding-left:10px;
     float: left;
     font-weight: bold;
     color: #174363;
@@ -432,7 +475,7 @@ time, mark, audio, video {
 			/* height:40px; */
 			background-color:rgba(255,255,255,0.8);
 			z-index:1;
-      margin-top: 20px;
+      margin-top: 10px;
       margin-right: 20px;
     }
 
@@ -454,9 +497,6 @@ time, mark, audio, video {
 
 	@media (max-width: 600px) {
 
-		 body {
-			height: 620px;
-		}
 
     #scene-image {
       margin-right: 0px;
@@ -473,8 +513,6 @@ time, mark, audio, video {
 			/* position:absolute; */
 			/* top:-120px; */
 			left:0px;
-			width:100%;
-			height:72px;
 			background-color:rgba(255,255,255,0.8);
 			z-index:3;
 		}
@@ -638,6 +676,10 @@ time, mark, audio, video {
   height:70px;
 }
 
+#scene {
+	width:100%;	
+}
+
 </style>
 
 </head>
@@ -649,11 +691,11 @@ time, mark, audio, video {
 <div class="row">
   <div id="info-box" class="col-xs-12 col-sm-4">
     <div id="scene-image">
-      <img src="images/scene.svg" alt="">
+      <img src="images/scene.svg" id="scene" alt="">
     </div>
 
     <div id='selectNav'>
-      <span style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
+      <span id="postcodetext" style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
       <div>
         <form style="margin-top: 10px; height: 40px" id="pcForm">
           <div style="display:inline;float:left;width:calc(100% - 40px)">
@@ -670,19 +712,19 @@ time, mark, audio, video {
       This calculator will show you
     </div>
     <div id="container-pollution-removed" class="container-stats">
-      <div class="pic">
-        <img src="images/leaf-w.svg" alt="">
+      <div class="pic col-xs-2">
+        <img src="images/leaf-w.svg" class="icons" alt="">
       </div>
-      <div id="leaf-text">
+      <div id="leaf-text" class="col-xs-9 col-xs-offset-1">
         <span class="bold-text">Kilograms of pollution removed by vegetation</span>
          in your immediate area.
       </div>
     </div>
     <div id="container-pollution-value" class="container-stats">
-      <div class="pic">
-        <img src="images/coin-w.svg" alt="">
+      <div class="pic col-xs-2">
+        <img src="images/coin-w.svg" class="icons" alt="">
       </div>
-      <div id="coin-text">
+      <div id="coin-text" class="col-xs-9 col-xs-offset-1">
         <span class="bold-text">Avoided costs relating to damaged health</span>
          per person as a result of this pollution removal in your wider area.
       </div>
@@ -694,10 +736,10 @@ time, mark, audio, video {
         <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="value">Total pollution removed by vegetation</a> in this km square</div>
       </div>
       <div id="container-detail-leaf">
-        <div class="pic-second">
+        <div class="pic-second col-xs-2">
           <img src="images/leaf.svg" alt="">
         </div>
-        <div id="info-leaf" style="padding-top:10px;">
+        <div id="info-leaf" class="col-xs-9">
           <span id="num-leaf" style="font-size:30px;">25</span> kg
         </div>
       </div>
@@ -711,10 +753,10 @@ time, mark, audio, video {
       </div>
 
       <div id="container-detail-coin">
-        <div class="pic-second">
+        <div class="pic-second col-xs-2">
           <img src="images/coin.svg" alt="">
         </div>
-        <div id="info-coin"style="padding-top:10px;">
+        <div id="info-coin" class="col-xs-9">
           <span id="num-coin"style="font-size:30px;">£7</span> per person
         </div>
       </div>
@@ -760,6 +802,7 @@ time, mark, audio, video {
 
   	<div id='keydiv'></div>
   </div>
+      
 </div>
 
 <!--<script src="http://d3js.org/d3.v3.min.js"></script>

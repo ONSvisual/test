@@ -953,6 +953,8 @@ if(Modernizr.webgl) {
 			var breaks = config;
 
 			keywidth = $("#keydiv").width();
+			
+			d3.select("#postcodetext").text("Enter your postcode")
 
 			var svgkey = d3.select("#keydiv")
 				.append("svg")
@@ -1151,13 +1153,15 @@ if(Modernizr.webgl) {
 		.attr("id", "share")
 		.style("width","100%")
 		.style("height", "30px")
-		.style("float", "left");
+		//.style("float", "left")
+		.style("text-align","center");
 
 	d3.select("#share")
 		.append("p")
 		.style('margin-top',"10px")
+		.style('margin-right',"20px")
 		.style("font-weight","bold")
-		.style("text-align","left")
+		.style("text-align","center")
 		.style("color","#666")
 		.text("Share your results")
 
@@ -1171,14 +1175,12 @@ if(Modernizr.webgl) {
 		.attr("id","facebookShare")
 		.attr("href","https://www.facebook.com/sharer/sharer.php?u=" + ParentURL)
 		.attr("target","_blank")
-		.style("display","block")
 		.style("height","25px")
 		.style("width","25px")
 		.style("background","#fff")
 		.style("margin-top","5px")
 		.style("margin-right","7px")
 		.style("margin-bottom","5px")
-		.style("float","left")
 		.style("opacity","0.7")
 		.attr("title","Facebook")
 		.append("img")
@@ -1190,14 +1192,12 @@ if(Modernizr.webgl) {
 		.attr("id","twitterShare")
 		.attr("href","https://twitter.com/intent/tweet?text=" + ParentURL)
 		.attr("target","_blank")
-		.style("display","block")
 		.style("height","25px")
 		.style("width","25px")
 		.style("background","#fff")
 		.style("margin-top","5px")
 		.style("margin-right","7px")
 		.style("margin-bottom","5px")
-		.style("float","left")
 		.style("opacity","0.7")
 		.attr("title","Twitter")
 		.append("img")
