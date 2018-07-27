@@ -79,6 +79,10 @@ if(Modernizr.webgl) {
 					d3.select('#select-container').style('display', 'block')
 					d3.select('#pollutant-wrapper').style('display', 'block')
 				}
+				dataLayer.push({
+                     'event': 'buttonClicked',
+                     'selected': value
+                   })
 		  });
 
 		//set title of page
@@ -639,6 +643,10 @@ if(Modernizr.webgl) {
 		$('#pollutant-select').on('change', function() {
 			pollutant = $('#pollutant-select').val();
 			updateLayers(pollutant)
+			dataLayer.push({
+                     'event': 'mapDropSelect',
+                     'selected': pollutant
+                   })
 		})
 
 		function updateLayers(pollVal) {
@@ -738,6 +746,11 @@ if(Modernizr.webgl) {
 
 			function getCodes(myPC)	{
 
+					dataLayer.push({
+										 'event': 'geoLocate',
+										 'selected': 'postcode'
+									 })
+
 					var myURIstring=encodeURI("https://api.postcodes.io/postcodes/"+myPC);
 					$.support.cors = true;
 					$.ajax({
@@ -817,13 +830,17 @@ if(Modernizr.webgl) {
 
                 map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-                    
+
 		};
 
 
 
 		function onMove(e) {
 			map.getCanvasContainer().style.cursor = 'pointer';
+			dataLayer.push({
+                     'event': 'mapHoverSelect',
+                     'selected': e.lngLat
+                   })
 		};
 
 
@@ -867,6 +884,12 @@ if(Modernizr.webgl) {
 		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 
 										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+
+										dataLayer.push({
+																	 'event': 'mapClickSelect',
+																	 'selected': e.lngLat
+																 })
+
 		        };
 
 		function disableMouseEvents() {
