@@ -1152,7 +1152,7 @@ if(Modernizr.webgl) {
 		.append("div")
 		.attr("id", "share")
 		.style("width","100%")
-		.style("height", "30px")
+		.style("height", "60px")
 		//.style("float", "left")
 		.style("text-align","center");
 
