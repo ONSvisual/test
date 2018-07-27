@@ -893,15 +893,8 @@ if(Modernizr.webgl) {
 
 		  point = map.project([lng,lat]);
 
-			map.flyTo({center:[lng,lat], zoom:10, duration:durationlength})
+			map.jumpTo({center:[lng,lat], zoom:10, duration:durationlength})
 
-			map.on('flystart', function(){
-				flying=true;
-			});
-
-			map.on('flyend', function(){
-				flying=false;
-			});
 
 			setTimeout(function(){
 
