@@ -816,7 +816,7 @@ if(Modernizr.webgl) {
 				point = map.project([lng,lat]);
 
 				features = map.queryRenderedFeatures(point);
-				console.log(features)
+
 				if(features[0].layer.id != "pollution") {
 					j=1;
 				} else {
@@ -830,6 +830,9 @@ if(Modernizr.webgl) {
 
                 map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
+								
+				d3.select("#twitterShare")
+					.attr("href","https://twitter.com/intent/tweet?text=Removal of pollution by vegetation saves an estimated £" + features[j+1].properties.value + " per person in "+ features[j+1].properties.AREANM + " " + ParentURL);
 
 		};
 
@@ -881,14 +884,18 @@ if(Modernizr.webgl) {
 										d3.selectAll('.container-stats').style('display', 'none');
 										d3.select('#postcode-info').style('display', 'block');
 
-		                map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
+		                				map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 
 										d3.select('#num-leaf').text(d3.format(",.0f")(features[j].properties.pollution_total));
+
+										d3.select("#twitterShare")
+										.attr("href","https://twitter.com/intent/tweet?text=Removal of pollution by vegetation saves an estimated £" + features[j+1].properties.value + " per person in "+ features[j+1].properties.AREANM + " " + ParentURL);
 
 										dataLayer.push({
 																	 'event': 'mapClickSelect',
 																	 'selected': e.lngLat
 																 })
+										
 
 		        };
 
@@ -953,8 +960,11 @@ if(Modernizr.webgl) {
 			var breaks = config;
 
 			keywidth = $("#keydiv").width();
+			bodywidth = $("body").width();
 			
-			d3.select("#postcodetext").text("Enter your postcode")
+			if(bodywidth < 600) {
+				d3.select("#postcodetext").text("Enter your postcode");
+			}
 
 			var svgkey = d3.select("#keydiv")
 				.append("svg")
@@ -1166,7 +1176,7 @@ if(Modernizr.webgl) {
 		.text("Share your results")
 
 
-	var ParentURL = (window.location != window.parent.location)
+	ParentURL = (window.location != window.parent.location)
 	            ? document.referrer
 	            : document.location;
 
@@ -1186,11 +1196,11 @@ if(Modernizr.webgl) {
 		.append("img")
 		.style("height","25px")
 		.style("width","25px")
-		.attr("src","./images/facebook-grey.png");
+		.attr("src","./images/facebook-blue.png");
 
 	d3.select("#share").append("a")
 		.attr("id","twitterShare")
-		.attr("href","https://twitter.com/intent/tweet?text=" + ParentURL)
+		.attr("href","https://twitter.com/intent/tweet?text=Explore how pollution is removed by vegetation across the UK " + ParentURL)
 		.attr("target","_blank")
 		.style("height","25px")
 		.style("width","25px")
@@ -1203,7 +1213,7 @@ if(Modernizr.webgl) {
 		.append("img")
 		.style("height","25px")
 		.style("width","25px")
-		.attr("src","./images/twitter-grey.png");
+		.attr("src","./images/twitter-blue.png");
 
 
 	//on mouseover
