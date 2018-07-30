@@ -44,7 +44,10 @@ if(Modernizr.webgl) {
 			document.getElementById('button-2').setAttribute("aria-checked", false);
 			document.getElementById('button-2').checked = false;
 
-
+			dataLayer.push({
+									 'event': 'buttonClicked',
+									 'selected': 'valuelink'
+								 })
 		})
 
 		d3.select('#hectare').on('click', function() {
@@ -63,6 +66,11 @@ if(Modernizr.webgl) {
 
 			document.getElementById('button-2').setAttribute("aria-checked", true);
 			document.getElementById('button-2').checked = true;
+
+			dataLayer.push({
+									 'event': 'buttonClicked',
+									 'selected': 'hectarelink'
+								 })
 		})
 
 
@@ -830,7 +838,7 @@ if(Modernizr.webgl) {
 
                 map.setFilter("onekmhover", ["==", "GID", features[j].properties.GID]);
 								map.setFilter("state-fills-hover", ["==", "AREACD", features[j+1].properties.AREACD]);
-								
+
 				d3.select("#twitterShare")
 					.attr("href","https://twitter.com/intent/tweet?text=Removal of pollution by vegetation saves an estimated £" + features[j+1].properties.value + " per person in "+ features[j+1].properties.AREANM + " " + ParentURL);
 
@@ -895,7 +903,7 @@ if(Modernizr.webgl) {
 																	 'event': 'mapClickSelect',
 																	 'selected': e.lngLat
 																 })
-										
+
 
 		        };
 
@@ -961,7 +969,7 @@ if(Modernizr.webgl) {
 
 			keywidth = $("#keydiv").width();
 			bodywidth = $("body").width();
-			
+
 			if(bodywidth < 600) {
 				d3.select("#postcodetext").text("Enter your postcode");
 			}
