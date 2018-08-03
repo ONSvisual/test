@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})
+  (window,document,'script','dataLayer','GTM-MBCBVQS');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Pollution removal</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <link href='css/mapbox-gl.css' rel='stylesheet'/>
+  <link href='css/bootstrap-grid.css' rel='stylesheet'/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">  <link rel="stylesheet" href="css/chosen.css">
+  <link href="css/select2.min.css" rel="stylesheet" />
+
+<style>
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+    body {
+		font-family: 'Open Sans', sans-serif;
+		width:100%;
+/*		max-width:800px;
+*/		margin: 0px auto;
+	    font-size: 16px;
+	}
+
+	.row {
+		width:100%;
+	}
+
+	#header{
+		height:70px;
+		width:100%
+	}
+
+  #people {
+    font-size:12px;
+  }
+
+	.mapboxgl-ctrl-group .mapboxgl-ctrl-compass {
+		display: none;
+	}
+
+  #scene-image {
+    margin-right: 20px;
+  }
+
+  #button-pic {
+    height: 30px;
+  }
+
+  #container-pollution-removed {
+    background-color: #266D4A;
+	display: table;
+/*    display: flex;
+  height:88px;*/
+   /* align-items: center;*/
+    margin-top:7px !important;
+
+  }
+
+  #container-pollution-value {
+    background-color: #174363;
+	display: table;
+    /* clear: left;
+	  height:108px; */
+/*        display: flex;
+    align-items: center;*/
+  }
+
+/*@media screen and (min-width:600px) and (max-width:865px) {
+    #container-pollution-value {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:826px) {
+    #container-pollution-removed {
+      height:108px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:738px) {
+    #container-pollution-value {
+      height:152px;
+    }
+
+    #container-pollution-removed {
+      height:130px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:668px) {
+    #container-pollution-removed {
+      height:152px;
+    }
+  }
+
+
+  @media screen and (min-width:600px) and (max-width:634px) {
+    #container-pollution-value {
+      height:175px;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:620px) {
+    #container-pollution-value {
+      height:200px;
+    }*/
+
+ /* @media screen and (min-width:600px) and (max-width:865px) {
+    #container-pollution-value {
+          display: flex;
+    align-items: center;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:826px) {
+    #container-pollution-removed {
+          display: flex;
+	  height:auto;
+    align-items: center;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:738px) {
+    #container-pollution-value {
+          display: flex;
+	  height:auto;
+    align-items: center;
+    }
+
+    #container-pollution-removed {
+         display: flex;
+    align-items: center;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:668px) {
+    #container-pollution-removed {
+          display: flex;
+    align-items: center;
+    }
+  }
+
+
+  @media screen and (min-width:600px) and (max-width:634px) {
+    #container-pollution-value {
+          display: flex;
+    align-items: center;
+    }
+  }
+
+  @media screen and (min-width:600px) and (max-width:620px) {
+    #container-pollution-value {
+         display: flex;
+    align-items: center;
+    }
+  }*/
+
+  .container-stats {
+    padding: 15px 10px;
+	display: table;
+    margin-top: 20px;
+    margin-right: 20px;
+    color: white;
+  }
+
+  @media screen and (max-width:599px) {
+      .container-stats {
+        margin-right: 00px;
+      }
+    }
+
+ .pic {
+    height: 45px;
+   /* display: inline-block;
+    float: left;
+    padding-left: 10px;
+    box-sizing: border-box;*/
+  }
+
+  .icons {
+	  max-width:50px;
+	  float:right;
+  }
+
+/*  #leaf-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+
+    width: 80%;
+    float: left;
+  }
+*/
+ /* #coin-text {
+    width: 80%;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    font-weight: lighter;
+  }*/
+
+  .bold-text {
+    font-weight: 700;
+  }
+
+  /* Primary button */
+
+  .btn-primary {
+    background-color: #206095;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color:#003C57;
+  }
+
+  .btn-primary:focus {
+    outline: 3px solid #FF9933 !important;
+    outline-offset: -1px;
+    background-color:#003C57;
+  }
+
+  .large {
+    font-family: 'Open Sans',Arial,sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+    cursor: pointer;
+    height: 40px;
+    padding: 0 32px 0 32px;
+    border: 0 none;
+    text-align: center;
+    -webkit-appearance: none;
+    transition: background-color 0.25s ease-out;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+
+
+  /* Button group styles */
+
+   #primary {
+    margin-bottom: 32px;
+  }
+
+  .btn-form {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-family: 'Open Sans',Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .form-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -moz-box;
+    display: flex;
+    cursor: pointer;
+    height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .form-group:last-child {
+    border-right: solid 1px #A6A8AB;
+  }
+
+  /* Full width */
+
+  .btn-form-fullwidth {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+	display: -webkit-inline-flex;
+	display: -moz-inline-box;
+    display: inline-flex;
+    font-family: 'Open Sans',Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    font-size: 16px;
+    /*margin-bottom: 15px;*/
+    width: 100%;
+  }
+
+  .form-group-fullwidth {
+	display: -webkit-box;
+    display: -ms-flexbox;
+	display: -webkit-flex;
+    display: flex;
+    cursor: pointer;
+  /*  height: 63px;*/
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+  }
+
+  .form-group-fullwidth:last-child {
+    border-right: solid 1px #A6A8AB;
+  }
+
+  .label-primary-fullwidth {
+    padding: 8px 14px;
+    cursor: pointer;
+    color: #333;
+    background: #F9F9F9;
+    border-top: solid 1px #A6A8AB;
+    border-left: solid 1px #A6A8AB;
+    border-bottom: solid 1px #A6A8AB;
+    width: 100%;
+  }
+
+  .label-primary-fullwidth:hover {
+    background: #003C57;
+    color: #fff;
+    border-color: #003C57;
+    width: 100%;
+  }
+
+  .radio-primary-fullwidth:checked + .label-primary-fullwidth {
+    background: #206095;
+    color: #fff;
+    border-color: #206095;
+    cursor: default;
+    width: 100%;
+  }
+
+  .radio-primary-fullwidth {
+    display: none;
+  }
+
+  /*  dropdown */
+  #select-container {
+    padding-bottom: 10px;
+  }
+
+  #pollutant-select {
+    width: 50%;
+  }
+
+
+  #select-text {
+    font-weight: bold;
+    color: #0075A3;
+    display: block;
+    padding-bottom: 5px;
+  }
+
+  #savings-text {
+    font-weight: bold;
+    color: #0075A3;
+  }
+
+  #postcode-text {
+    font-weight: bold;
+    color: #266D4A
+  }
+
+    #value {
+    color: #266D4A;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* #value:visited {
+    color: #266D4A;
+  }
+
+  #value:active {
+    color: #266D4A;
+  }
+
+  #value:active {
+    color: #266D4A;
+  } */
+
+  #value:hover {
+    color: #16412c;
+  }
+
+
+
+
+  #hectare{
+    color: #0075A3;
+    text-decoration: underline;
+    cursor: pointer;
+
+  }
+
+  /* #hectare:visited{
+    color: #0075A3
+  }
+
+  #hectare:active{
+    color: #0075A3
+  }
+
+  #hectare:active{
+    color: #0075A3
+  } */
+
+  #hectare:hover{
+    color: #004661;
+  }
+
+
+
+
+  .pic-second {
+    height:40px;
+	width:40px;
+    float: left;
+  }
+
+  #info-leaf {
+	padding-left:10px;
+    float: left;
+    font-weight: bold;
+    color: #266D4A;
+
+  }
+
+  #info-coin {
+	padding-left:10px;
+    float: left;
+    font-weight: bold;
+    color: #174363;
+  }
+
+  #pollution-removed, #pollution-hectare {
+    margin-right: 15px;
+  }
+
+
+
+
+	@media (min-width: 599px) {
+		#map {
+			height: 610px;
+			/* width: 100%; */
+		}
+
+		#selectNav {
+			/* position:absolute; */
+			top:0px;
+			left:0px;
+			/* width:100%; */
+			/* height:40px; */
+			background-color:rgba(255,255,255,0.8);
+			z-index:1;
+      margin-top: 10px;
+      margin-right: 20px;
+    }
+
+		#keydiv {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 200px;
+      height: 105px;
+      z-index:2;
+      background-color:rgba(255,255,255,0.7)
+		}
+
+		#currVal {
+			font-size:14px;
+
+		}
+	}
+
+	@media (max-width: 599px) {
+
+
+    #scene-image {
+      margin-right: 0px;
+    }
+
+    #map {
+  		height: 500px;
+  		/*width: 100%;*/
+  		overflow:visible;
+		}
+
+		#selectNav {
+
+			/* position:absolute; */
+			/* top:-120px; */
+			left:0px;
+			background-color:rgba(255,255,255,0.8);
+			z-index:3;
+		}
+
+    #buttongroup {
+      margin-top:15px;
+    }
+
+    .form-group-fullwidth {
+      height: 85px;
+    }
+
+    #pollution-removed, #pollution-hectare {
+      margin-right: 0px;
+    }
+
+
+		#keydiv {
+
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 95px;
+      background-color: rgba(255,255,255,0.8);
+      z-index: 1;
+
+		}
+
+		#currVal {
+			font-size:14px;
+
+		}
+
+		.mapboxgl-ctrl-fullscreen {
+			display:none !important;
+		}
+	}
+
+
+.key /* required */
+{
+	display: inline-block;
+	margin: 0 0 1em 0;
+	padding: 0;
+	line-height: 15px;
+}
+.key .legendlabel {
+	white-space: nowrap;
+	margin-right: 13px;
+	font-size: 12px;
+	color: #333;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.key .percentlabel {
+	white-space: nowrap;
+	margin-right: 13px;
+	font-size: 12px;
+	float: right;
+	color: #333;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:right;
+}
+
+.key li/* required */
+{
+	margin: 2px 23px 2px 10px;
+    padding: 0;
+    line-height: 15px;
+}
+.key b /* required */
+{
+	display: inline-block;
+	width: 35px;
+	height: 15px;
+	margin-right: 6px;
+	float: right;
+	background-color:none;
+	margin-top:8px;
+	border-radius:15px;
+}
+.legendBlocks{ /* new for Cluster chart */
+	width: 15px !important;
+	margin-top:0px !important;
+}
+.key legendlabel/* required */
+{
+	white-space: nowrap;
+	font-size: 12px;
+	color: #333;
+	font-weight: normal;
+}
+
+.key .percentlabel/* required */
+{
+	white-space: nowrap;
+	font-size: 12px;
+	width: 40px;
+	color: #333;
+	float:right;
+	font-weight: normal;
+}
+
+.key .legendRect {
+
+	float: left;
+    /*width: 10px;*/
+    height: 13px;
+    background-color: #666;
+}
+
+#pcText {
+			width: 100%;
+			height:40px;
+			/* padding: 3px; */
+      /* padding-bottom: 10px; */
+			color: #999999;
+      font-size: 16px;
+      box-sizing: border-box;
+      border:1px solid #f93;
+}
+
+#pcText:focus{
+  border:1px solid #36add9
+}
+
+.btnEnable {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    border: none;
+    padding: 0px 0!important;
+    background-color: #0075A3;
+    font: 700 16px Arial;
+    color: #FFF;
+    filter: inherit;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+#pollutant-wrapper {
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+    width: 230px;
+    /* margin: 8px; */
+    padding: 8px;
+    background-color: rgba(255,255,255,0.7);
+}
+
+#switchMe {
+  text-decoration:underline;
+
+}
+
+#social {
+  height:70px;
+}
+
+#scene {
+	width:100%;
+}
+
+#source {
+	font-size: 14px;
+	font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+	margin-top:10px;
+	color: rgb(65,64,66);
+}
+
+</style>
+
+</head>
+<body>
+  <noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBCBVQS" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+<div class="row">
+  <div id="info-box" class="col-xs-12 col-sm-4">
+    <div id="scene-image">
+      <img src="images/scene.svg" id="scene" alt="">
+    </div>
+
+    <div id='selectNav'>
+      <span id="postcodetext" style="margin:15px 0px; font-weight:bold; color:#0075A3">Enter your postcode or use the map</span>
+      <div>
+        <form style="margin-top: 10px; height: 40px" id="pcForm">
+          <div style="display:inline;float:left;width:calc(100% - 40px)">
+            <input id="pcText" class="picaarticle" type="text" tabindex="1" placeholder="e.g. NP10 8XG">
+          </div>
+          <div style="display:inline;float:right">
+              <button class="btnEnable" id="submitPost" type="submit"><img src="images/image.png" id="button-pic" alt=""></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div style="margin-top:15px;" id="onload-text">
+      This calculator will show you
+    </div>
+    <div id="container-pollution-removed" class="container-stats">
+      <div class="pic col-xs-2">
+        <img src="images/leaf-w.svg" class="icons" alt="">
+      </div>
+      <div id="leaf-text" class="col-xs-9 col-xs-offset-1">
+        <span class="bold-text">Kilograms of pollution removed by vegetation</span>
+         in your immediate area.
+      </div>
+    </div>
+    <div id="container-pollution-value" class="container-stats">
+      <div class="pic col-xs-2">
+        <img src="images/coin-w.svg" class="icons" alt="">
+      </div>
+      <div id="coin-text" class="col-xs-9 col-xs-offset-1">
+        <span class="bold-text">Avoided costs relating to damaged health</span>
+         per person as a result of this pollution removal in your wider area.
+      </div>
+    </div>
+
+
+    <div id="postcode-info">
+      <div id="postcode-text">
+        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="value">Total pollution removed by vegetation</a> in this km square</div>
+      </div>
+      <div id="container-detail-leaf">
+        <div class="pic-second col-xs-2">
+          <img src="images/leaf.svg" alt="">
+        </div>
+        <div id="info-leaf" class="col-xs-9">
+          <span id="num-leaf" style="font-size:30px;">25</span> kg
+        </div>
+      </div>
+      <div id="pollution-removed"></div>
+    <!-- </div> -->
+
+
+    <!-- <div id="healthcare-info"> -->
+      <div id="savings-text">
+        <div style="margin-top:20px; margin-bottom:15px;"><a href="#" id="hectare">The amount saved in healthcare costs</a> per person in your wider area, <span id="yourNuts3"></span></div>
+      </div>
+
+      <div id="container-detail-coin">
+        <div class="pic-second col-xs-2">
+          <img src="images/coin.svg" alt="">
+        </div>
+        <div id="info-coin" class="col-xs-9">
+          <span id="num-coin"style="font-size:30px;">£7</span> per person
+        </div>
+      </div>
+
+      <div id="pollution-hectare"></div>
+    </div>
+
+    <!--social buttons-->
+    <div id="social" class="col-xs-12">
+    </div>
+  </div>
+
+  <div id="buttongroup" class="col-xs-12 col-sm-8">
+    <form class="btn-form-fullwidth" role="radiogroup">
+      <div class="form-group-fullwidth" role="radio" tabindex="0">
+        <input id="button-1" class="radio-primary-fullwidth" type="radio" name="button" value="value" aria-checked="true" checked>
+        <label class="label-primary-fullwidth" for="button-1">Pollution removed by vegetation (kg)</label>
+      </div>
+      <div class="form-group-fullwidth" role="radio" tabindex="2">
+        <input id="button-2" class="radio-primary-fullwidth" type="radio" name="button" value="hectare" aria-checked="false">
+        <label class="label-primary-fullwidth" for="button-2">Avoided health damage costs (£ per person)</label>
+      </div>
+    </form>
+  </div>
+
+  <div id='map' class="col-xs-12 col-sm-8">
+    <!-- <button id="switch">switch</button> -->
+
+    <div id="pollutant-wrapper" style="height:63px">
+      <div id="select-container">
+        <span id="select-text">Select a pollutant</span>
+        <select id="pollutant-select" class="js-example-basic-single" style="width: 100%" name="state">
+          <option value="pollution_total">Total</option>
+          <option value="pollution_SO2">Sulphur Dioxide (S02)</option>
+          <option value="pollution_O3">Ozone (03)</option>
+          <option value="pollution_NO2">Nitrogen Dioxide (NO2)</option>
+          <option value="pollution_NH3">Ammonia (NH3)</option>
+          <option value="pollution_PM10">Particulates < 10&mu;m (PM<sub>10</sub>)</option>
+          <option value="pollution_PM25">Particulates < 2.5&mu;m (PM<sub>2.5</sub>)</option>
+        </select>
+      </div>
+    </div>
+
+  	<div id='keydiv'></div>
+  </div>
+
+  <div class="col-xs-12">
+ 	 <p id='source'>Source: Office for National Statistics, Centre for Ecology and Hydrology</p>
+  </div>
+
+</div>
+
+<!--<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>-->
+
+<script src="https://cdn.ons.gov.uk/vendor/d3/4.2.7/d3.min.js"></script>
+<script src="js/topojson.v2.min.js"></script>
+<script src="js/simple-statistics.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/d3-queue.min.js"></script>
+<script src="js/colorbrewer.js"></script>
+<script src="https://cdn.ons.gov.uk/vendor/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/chosen.jquery.js"></script>
+<script src="js/limit.js"></script>
+<script src="https://cdn.ons.gov.uk/vendor/pym/1.3.2/pym.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+
+
+<!--<script src='js/mapbox-gl.js'></script>-->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+
+
+<script src='js/turf.min.js'></script>
+<script src="js/fullresscript.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.js-example-basic-single').select2();
+});
+</script>
+
+<noscript>
+	<p>Your browser does not support JavaScript. If you're able to please enable Javascript to view the map.</p>
+</noscript>
+
+</body>
+</html>
